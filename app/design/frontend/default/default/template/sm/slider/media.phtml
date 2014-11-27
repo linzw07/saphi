@@ -1,0 +1,22 @@
+<div class="item">
+	<div class="item-inner font2">
+		<div class="item-box">
+			<div class="product-image">
+				<?php $removeHttp =	str_replace('http://','', $item['link']); ?>
+				<a style="display:<?php echo ($config['product_image_disp'])?"block":"none";?>" class="" href="<?php if($config['product_image_linkable'] == 1){ echo $removeHttp;} else{ echo "#";}?>" title="<?php echo $item['title']; ?>" >
+					<img  src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/category/'.$item['image'] ?>"  alt="<?php echo $item['title'] ?>" />
+				</a>
+			</div>	
+		</div>	
+<?php /* 		<div class="item-box-footer">
+			<h2 class="product-name" style="display:<?php echo ($config['product_title_disp'])?"block":"none";?>;">	
+				<a class="fontcolor" href="<?php if($config['product_image_linkable'] == 1){ echo $item['link'] ;} else{ echo "#";}?>" title="<?php echo $item['title']; ?>">
+					<?php echo $item['sub_title']; ?>
+				</a>
+			</h2>	
+			<div class="so_content" style="display:<?php echo ($config['product_description_disp'])?"display":"none";?>;">	       			
+				<div class="so_description"><?php echo $item['sub_content'];?></div>
+			</div>		
+		</div>	 */ ?>	
+	</div>
+</div>

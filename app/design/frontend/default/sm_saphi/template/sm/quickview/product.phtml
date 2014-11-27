@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php //echo $this->getLang() ?>" lang="<?php //echo $this->getLang() ?>">
+	<head>
+		<?php echo $this->getChildHtml('head') ?>
+		<base target="_parent" />
+	</head>
+	<body <?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+		<div class="quickview-main">
+			<?php echo $this->getChildHtml('content') ?>
+		</div>
+		<?php echo $this->getChildHtml('before_body_end') ?>
+	</body>
+</html>
+<?php //echo $this->getChildHtml('head') ?>
+<!-- div class="quickview-main">
+	<?php //echo $this->getChildHtml('content') ?>
+</div-->
+<?php //echo $this->getChildHtml('before_body_end') ?>
+

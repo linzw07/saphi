@@ -1,0 +1,74 @@
+<?php if ($this->getProduct()): ?>
+
+    <?php
+    $product = $this->getProduct();
+    $helper = $this->helper('dailydeals');
+    ?>
+    <?php if (Mage::getStoreConfig('dailydeals/dailydeals_group/product_select') && $helper->isDealEnabled($product)): ?>
+        <?php
+        $dealColor = Mage::getStoreConfig('dailydeals/dailydeals_group/color_select');
+        ?>
+        <div class="deals-countdown">
+            <script type="text/javascript">
+                CountdownImageFolder = "<?php echo $this->getSkinUrl('images/deals/images/')?>";
+                (document.body.clientWidth <= 500) ? width = 250 : width = 345;
+                var myCountdown1 = new Countdown({
+                    time: <?php echo strtotime($product->getDealEndTime()) - strtotime(Mage::helper('dailydeals')->getCurrentTime());?>, // 86400 seconds = 1 day
+                    second: 0,
+                    width: width,
+                    height: 70,
+                    rangeHi: "day",
+                    numbers: {
+                        font: "Arial",
+                        color: "",
+                        bkgd: "<?php echo $dealColor ?>",
+                        rounded: 0.25
+                    },
+                    style: "boring"	// <- no comma on last item!
+                });
+
+            </script>
+            <?php
+            echo Mage::log("cron timezone: " . date_default_timezone_get()); ?>
+
+	    <?php if (Mage::getStoreConfig('dailydeals/dailydeals_group/show_deals_status')): ?>
+            <div class="col3-set deal-stat">
+                <div class="col-1" style="border-color: #<?php echo $dealColor; ?>;">
+                    <span class="deal-title"><?php echo $helper->__('You save') ?></span>
+                    <hr/>
+                    <?php if (Mage::getStoreConfig('dailydeals/dailydeals_group/you_save') == 'money'): ?>
+                        <span class="deal-value"
+                              style="color: #<?php echo $dealColor; ?>"><?php echo '<span class="price" style="font-size: 17px;">';
+                            echo Mage::helper('core')->currency(($product->getPrice() - $product->getDealPrice()), true, false); ?></span> </span>
+                    <?php else: ?>
+                        <span class="deal-value"
+                              style="color: #<?php echo $dealColor; ?>"><?php printf("%.0f", 100 - ($product->getDealPrice() / ($product->getPrice() / 100))); ?>
+                            % </span>
+                    <?php endif; ?>
+                </div>
+                <div class="col-2" style="border-color: #<?php echo $dealColor; ?>;">
+                    <span class="deal-title"><?php echo $helper->__('Items Bought'); ?></span>
+                    <hr/>
+                        <span class="deal-value"
+                              style="color: #<?php echo $dealColor; ?>"> <?php if (!$product->getDealBought()) {
+                                echo '0';
+                            } else {
+                                echo $product->getDealBought();
+                            } ?></span>
+                </div>
+                <div class="col-3" style="border-color: #<?php echo $dealColor; ?>;">
+                    <span class="deal-title"><?php echo $helper->__('Items left'); ?></span>
+                    <hr/>
+                        <span class="deal-value"
+                              style="color: #<?php echo $dealColor; ?>"> <?php echo $product->getDealQty(); ?></span>
+                </div>
+            </div>
+	    <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    <div class="clearfix"></div>
+<?php endif; ?>
+
+
+
+

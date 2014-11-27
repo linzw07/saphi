@@ -1,0 +1,14 @@
+.blocktabs .item-wrap-hover{
+	left:0.5px !important;
+}
+
+.language-switcher div.selector select,
+.currency-select-inner div.selector select{
+	margin-left: 1px !important;
+}
+.sm-basenews .day{
+	padding-top:3px;
+}
+.yt-left-wrap #myCarousel .carousel-inner .frs img,.cms-home #myCarousel .carousel-inner .frs img{
+	margin-bottom: 6px;
+}

@@ -1,0 +1,55 @@
+<?php echo $this->getChild('countdown.mini')->toHtml();?>
+<?php if (Mage::getStoreConfig('dailydeals/dailydeals_group/category_select')): ?>
+    <?php
+    $product = $this->getProduct();
+    $dealColor = Mage::getStoreConfig('dailydeals/dailydeals_group/color_select_mini');
+    ?>
+    <?php if (($product->getDealStatus()) && (Mage::helper('dailydeals')->isDealEnabled($product))) : ?>
+        <?php if ($this->getRequest()->getParam('mode') != 'list'): ?>
+            <?php /*echo $this->getChildHtml('child') */ ?>
+            <div id="deals-countdown-mini-grid" class="deals-countdown-mini-grid">
+                <script type="text/javascript">
+	                var widthParent = document.getElementById('deals-countdown-mini-grid').offsetWidth;
+	                var heightParent = document.getElementById('deals-countdown-mini-grid').offsetHeight;
+	                var CountdownImageFolder = "<?php echo $this->getSkinUrl('images/deals/images/')?>";
+                    var myCountdown1 = new Countdown({
+                        time: <?php echo strtotime($product->getDealEndTime()) - strtotime(Mage::helper('dailydeals')->getCurrentTime());?>, // 86400 seconds = 1 day
+                        second: 0,
+                        width: widthParent,
+                        height: heightParent,
+                        rangeHi: "day",
+                        numbers: {
+                            font: "Arial",
+                            color: "",
+                            bkgd: "<?php echo $dealColor ?>",
+                            rounded: 0.25
+                        },
+                        style: "boring"	// <- no comma on last item!
+                    });
+                </script>
+            </div>
+        <?php else: ?>
+            <div id="deals-countdown-mini-list" class="deals-countdown-mini-list">
+                <script type="text/javascript">
+	                var heightParent = document.getElementById('deals-countdown-mini-list').offsetHeight;
+	                (document.body.clientWidth <= 600) ? widthParent = 200 :  widthParent = document.getElementById('deals-countdown-mini-list').offsetWidth;
+	                var CountdownImageFolder = "<?php echo $this->getSkinUrl('images/deals/images/')?>";
+	                var myCountdown1 = new Countdown({
+		                time: <?php echo strtotime($product->getDealEndTime()) - strtotime(Mage::helper('dailydeals')->getCurrentTime());?>, // 86400 seconds = 1 day
+		                second: 0,
+		                width: widthParent,
+		                height: heightParent,
+		                rangeHi: "day",
+		                numbers: {
+			                font: "Arial",
+			                color: "",
+			                bkgd: "<?php echo $dealColor ?>",
+			                rounded: 0.25
+		                },
+		                style: "boring"	// <- no comma on last item!
+	                });
+                </script>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

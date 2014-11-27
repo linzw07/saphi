@@ -1,0 +1,333 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products">
+	<div class="toolbar-top">
+		<?php echo $this->getToolbarHtml() ?>
+	</div>
+    <?php // List mode ?>
+    <div class="yt-products-container clearfix">
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list row-fluid" id="products-list">
+    <?php foreach ($_productCollection as $_product):?>
+    	<?php 
+		$count_input_qty++;
+		$now = date("Y-m-d");
+		$newsFrom= substr($_product->getData('news_from_date'),0,10);
+		$newsTo=  substr($_product->getData('news_to_date'),0,10);
+		$specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice(); 
+		       
+		?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php // Product Image ?>
+			<div class="item-inner">	
+				<div id="pl_imagebox" class="item-box">
+					<div class="product-image">
+						<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+						<?php		
+									if($newsFrom != ''){							
+										if (($now>=$newsFrom && $now<=$newsTo)||($now>=$newsFrom && $newsTo =='')){ 
+											//echo "<span class='newproduct-grid'>new</span>"; ?>
+	                                        <div class='new-item'></div>
+										<?php }
+										}else{
+										if(($newsTo != "") && $newsTo >= $now){	
+										?>
+											<div class='new-item'></div>
+										<?php }
+									}
+									if ($specialprice){?>
+										<div class='sale-item'><span><?php											
+											$saleof= abs(($specialprice/($_product->getPrice()))*100-100);
+											print_r(floor($saleof));
+										?></span></div>
+                                    <?php }
+									?>								
+							<img class="image-main" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepAspectRatio(false)->resize(210,210); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+						</a>							
+					</div>
+					<!--<div class="product-wlist-cpare">
+						<ul class="wishlist-listting">
+							<?php if ($this->helper('wishlist')->isAllow()) : ?>
+								<li>
+									<span class="icon-heart"></span>
+									<a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
+								</li>
+							<?php endif; ?>
+						</ul>
+						<ul class="compare-listting">
+							<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+								<li>
+									<span class="icon-exchange"></span>
+									<a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a>
+								</li>
+							<?php endif; ?>
+						</ul>
+					</div>	
+					<div class="bg-hover"></div>-->				
+				</div>
+                <div class="pl_infobox">
+                	<div class="products-list-info ">
+                 		<div class="item-box-footer" data-mobile="item-box-footer span4">
+                      <div class="item-box-content">					
+                          <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                          <h2 class="product-name "><a class="fontcolor" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                          <!--div class="stock-status">
+                              <?php //if ($_product->isAvailable()): ?>
+                                  <?php //echo $this->__('Availability:') ?><p class="availability in-stock">
+                                  <span><?php //echo $this->__('In stock') ?></span></p>
+                              <?php //else: ?>
+                                  <?php //echo $this->__('Availability:') ?><p class="availability out-of-stock">
+                                  <span><?php //echo $this->__('Out of stock') ?></span></p>
+                              <?php //endif; ?>		
+                          </div-->									
+          					<div class="ratings-wrap">
+                            	<?php //if($_product->getRatingSummary()): ?>
+									<?php  echo $this->getReviewsSummaryHtml($_product, false, true); ?>
+									<?php //endif; ?>
+                            </div>
+                          
+                          
+                      </div>											
+                  		</div>                  
+                 	 	<!--<div class="span8" data-tablet="span12" data-normal="span12">-->
+                    	<div class="box-main" data-mobile="box-main span4">
+                          <div class="box-price-review">
+                              <div class="price-wrapper">	
+                                  <!--span class="price-title"><?php //echo $this->__("price:"); ?></span-->
+                                  <?php echo $this->getPriceHtml($_product, true) ?>
+                              </div>							
+                              <?php //echo $this->getReviewsSummaryHtml($_product, false, false)?>                              					
+                          </div>					
+                          <div class="desc std">
+                              <?php 
+							  echo  $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description');
+							  ?>	
+                          <!-- a class="readmore" href="<?php //echo $_product->getProductUrl(); ?>">More detail</a-->						
+                          </div>            
+                      </div>	
+                   		<!--</div>-->
+                     	                      	
+                		<div class="group-btn" data-mobile="cart-wishlist-detail span4">
+                        	
+                              <a title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" class="btn-cart bgcolor fontcolor" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
+                                  <span class="icon-cart"></span>   
+                                  <span class="icon-cart-text">Add To Cart</span>                                       
+                              </a>
+                          
+                        	
+                             <a title="<?php echo $this->__('Add to wishlist') ?>" class="btn-wishlist" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>">
+                                  <span class="icon-wishlist"></span>  
+                                  <span class="icon-wishlist-text">Add To Wishlist</span>                                    
+                             </a>
+                             <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>	
+										<a href="<?php echo $_compareUrl ?>" class="btn-compare" title="<?php echo $this->__('Add to compare') ?>">
+											<span class="icon-compare"></span>
+											<span class="compare-text"><?php echo $this->__('Add to Compare') ?></span>
+										</a>
+							<?php endif; ?>                           
+                        	
+                  		</div>		
+                  </div>
+                  	                  			
+            
+               		</div>
+                </div>			
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+    <?php else: ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php
+		$_columnCount = 4;
+	?>
+    <?php $j=0;$i=0; $k=0; foreach ($_productCollection as $_product):  $j++; $k++;?>
+    	<?php 
+		$now = date("Y-m-d");
+		$newsFrom= substr($_product->getData('news_from_date'),0,10);
+		$newsTo=  substr($_product->getData('news_to_date'),0,10);
+		$specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice(); 
+		
+		?>
+        <?php if ($i++==0){ ?>
+        <div class="products-grid">
+			<div class="row-fluid">
+			<?php } ?>
+				<!--<div class="span4 <?php if($j%2==1){echo " tablet";} if($j%2==0){echo " column2";}if($j%3==0){echo " column3";}if($j%4==0){echo " column4";}?>" 
+				data-normal="span4  <?php if($j%2==1){echo " tablet";} if($j%2==0){echo " column2";}if($j%3==0){echo " column3";}if($j%4==0){echo " column4";}?>" 
+				data-tablet="span6  <?php if($j%2==1){echo " tablet";} if($j%2==0){echo " column2";}if($j%3==0){echo " column3";}if($j%4==0){echo " column4";}?>" 
+				data-stablet="span6  <?php if($j%2==1){echo " tablet";} if($j%2==0){echo " column2";}if($j%3==0){echo " column3";}if($j%4==0){echo " column4";}?>">-->
+                <div class="span4<?php echo (($i-1)%3==0 || $i==1)?' first-normal':''; ?>" data-stablet="span6<?php echo (($i-1)%2==0 || $i==1)?' first-tablet':''; ?>" data-tablet="span6<?php echo (($i-1)%2==0 || $i==1)?' first-tablet':''; ?> <?php if($k==$_collectionSize): echo "item-last"; endif ?>">
+					<div class="item  bgcolor2">
+						<div class="item-inner">			
+							<div class="item-box">
+								<div class="product-image">
+									<?php		
+									if($newsFrom != ''){							
+									if (($now>=$newsFrom && $now<=$newsTo)||($now>=$newsFrom && $newsTo =='')){ 
+										//echo "<span class='newproduct-grid'>new</span>"; ?>
+                                        <div class='new-item'></div>
+									<?php }
+									}else{
+									if(($newsTo != "") && $newsTo >= $now){	
+									?>
+										<div class='new-item'></div>
+									<?php }
+									}
+									if ($specialprice){
+										//echo "<span class='saleoff-grid'>sale off</span>"; ?>
+										<div class='sale-item'><span><?php
+											//print_r($specialprice);
+											//print_r($_product->getPrice());
+											$saleof= abs(($specialprice/($_product->getPrice()))*100-100);
+											print_r(floor($saleof));
+										?></span></div>
+                                    <?php }
+									?>								
+									<a class="product-image-inner" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" ><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepAspectRatio(false)->resize(273,232); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                                    
+									
+                                	
+									<div class="item-box-hover">					
+										<!--<div class="actions">
+											<ul class="add-to-links">
+												<?php if ($this->helper('wishlist')->isAllow()) : ?>
+													<li class="wishlist-listting"> 
+														<span class="icon-heart"></span>
+														<a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?>
+														</a>
+													</li>
+												<?php endif; ?>
+												<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+													<li class="compare-listting">
+														<span class="icon-exchange"></span>
+														<a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a>
+													</li>
+												<?php endif; ?>
+											</ul>
+										</div>-->                                                                                																	
+									</div>	
+									<div class="bg-hover">
+                                    	<div class="item-description">                                        	
+                                            <?php 
+												echo  $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description');
+											?>
+                                        </div>
+                                        <a class="fontcolor" href="<?php echo $_product->getProductUrl() ?>" title="Go to detail">
+                                        	<div class="go-to-detail">
+                                        	</div>
+                                         </a>                                         
+                                    </div>
+																		
+								</div>
+							</div>
+							
+							<div class="item-box-footer">
+								<h2 class="product-name">
+									<a class="fontcolor" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+									<?php 
+									/*if(strlen($_helper->productAttribute($_product, $_product->getName(), 'name')) > 100){
+										echo substr($_helper->productAttribute($_product, $_product->getName(), 'name'), 0, 100) .' ...';
+									}else{*/
+										echo $_helper->productAttribute($_product, $_product->getName(), 'name');
+									/*}*/
+									?>
+									</a>
+								</h2>	
+                            	<div class="price-wrapper">	
+										<!--span class="price-title"><?php //echo $this->__("price:"); ?></span-->
+										<?php echo $this->getPriceHtml($_product, true) ?>
+								</div>	
+								<div class="ratings-wrap">
+                            	<?php //if($_product->getRatingSummary()): ?>
+									<?php  echo $this->getReviewsSummaryHtml($_product, false, true); ?>
+									<?php //endif; ?>
+                            	</div>
+                                <div class="group-btn">												
+                                  <a title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" class="btn-cart bgcolor fontcolor" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
+                                      <span class="icon-cart"></span>
+                                      <span class="icon-cart-text">Add To Cart</span>	
+                                  </a>                                
+                                  <a title="<?php echo $this->__('Add to wishlist') ?>" class="btn-wishlist" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>">
+                                      <span class="icon-wishlist"></span>
+                                      <span class="icon-wishlist-text">Add To Wishlist</span>
+                                  </a>	
+                                  <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>	
+								<a class="btn-compare" href="<?php echo $_compareUrl ?>" title="<?php echo $this->__('Add to compare') ?>">
+									<span class="icon-compare"></span>			
+									<span class="compare-text">
+										<?php echo $this->__('Add to Compare') ?>
+									</span>
+								</a>
+													
+								<?php endif; ?>
+                               </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php if ($i==$_collectionSize){ ?>
+			</div>
+        </div>
+        <?php } ?>
+        <?php endforeach ?>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+	</div>
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+
+</div>
+<script type="text/javascript">
+  $jsmart(function($){
+    $(function () {
+        $('#moveup-totop .moveup-toolbar').click(function() {
+          $('body,html').animate({
+          scrollTop: 0
+          }, 800);
+          return false;
+        });
+      });
+  });
+</script>
+<?php endif; ?>

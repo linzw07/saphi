@@ -1,0 +1,110 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Mega Menu - Version 1.0
+ # Copyright (c) 2009-2011 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+ $prefix = Sm_Megamenu_Model_System_Config_Source_Html::PREFIX;
+ $smarthelper= Mage::helper('megamenu/utils');
+ $itemsStartLv = $this->getItems();
+ $config = $this->getConfigObject();
+ $uq = uniqid($prefix.'menu');
+ if($config['theme']==Sm_Megamenu_Model_System_Config_Source_ListTheme::HORIZONTAL){
+	$theme = 'horizontal';
+ }
+ if($config['theme']==Sm_Megamenu_Model_System_Config_Source_ListTheme::VERTICAL){
+	$theme = 'vertical'; 
+ } ?>
+<?php if(count($itemsStartLv)):?>
+	<?php include dirname(__FILE__) . '/js/add_js_by_effect.phtml'; ?>
+	<?php include dirname(__FILE__) . '/css/add_css_by_theme.phtml'; ?>
+<div class="block block-megamenu"> 
+	   
+	<div class="<?php echo $prefix; ?>wrapper_<?php echo $theme?>_menu">
+		<ul class="nav-menu <?php echo $prefix; ?>menu <?php echo $prefix; ?>menu_black" id="<?php echo $uq; ?>">
+		<?php 	foreach($itemsStartLv as $itemStartLv){		?>
+					<li class="<?php echo $prefix; ?>lv1 <?php echo (!$this->isLeaf($itemStartLv) OR ($this->isLeaf($itemStartLv) AND $this->hasConntentType($itemStartLv)))?$prefix.'drop':$prefix.'nodrop'?>  <?php echo ($this->isAlignRight($itemStartLv))?$prefix.'right':''?> <?php echo ($this->isActived($itemStartLv))?$prefix.'actived':'' ?>">
+						<a class="<?php echo $prefix; ?>head <?php echo (!$this->isLeaf($itemStartLv) OR ($this->isLeaf($itemStartLv) AND $this->hasConntentType($itemStartLv)))?$prefix.'drop':$prefix.'nodrop'?> <?php echo ($this->isActived($itemStartLv))?$prefix.'actived'.' '.$prefix.'top_actived':'' ?>" href="<?php echo ($this->hasLinkType($itemStartLv))?$this->getLinkOfType($itemStartLv):'javascript:void(0)'?>" <?php echo ($this->hasLinkType($itemStartLv))?$smarthelper->getTargetAttr($itemStartLv->getTarget()):'' ?> id="<?php echo $prefix.$itemStartLv->getId()?>">
+							<?php if($this->hasIcon($itemStartLv)) {	?>
+							<span style="background-image: url('<?php echo $this->filterImage($itemStartLv);?>')" class="<?php echo $prefix; ?>icon <?php if(!$itemStartLv->getDescription()){echo $prefix.'nodesc';}?>">		
+							<?php }else{	?>
+							<span class="<?php if(!$itemStartLv->getDescription()){echo $prefix.'nodesc';}?>">		
+							<?php } ?>
+									<?php if($itemStartLv->getShowTitle()==Sm_Megamenu_Model_System_Config_Source_Status::STATUS_ENABLED){	?>
+									<span class="<?php echo $prefix; ?>title"><?php echo $itemStartLv->getTitle() ?></span>
+									<?php } ?>
+								<?php if($itemStartLv->getDescription()):?>
+									<span class="<?php echo $prefix; ?>description"><?php echo $itemStartLv->getDescription() ?>&nbsp;</span>	
+								<?php endif?>			
+							</span>
+						</a>
+					<?php $childItems = Mage::helper('megamenu')->getChildsDirectlyByItem($itemStartLv);?>
+					<?php if($this->isLeaf($itemStartLv) OR !count($childItems->getItems())){ 	?>
+							<?php if($this->hasConntentType($itemStartLv)){	?>
+								<div class="<?php echo $prefix; ?>dropdown_<?php echo $itemStartLv->getColsNb()?><?php if($itemStartLv->getColsNb()>1){ ?>columns<?php }else{ ?>column<?php } ?> <?php echo ($this->isAlignRight($itemStartLv))?$prefix.'align_right':''?> <?php echo ($this->isActived($itemStartLv))?$prefix.'actived':'' ?>" >
+									<?php if($itemStartLv->getShowTitle()==Sm_Megamenu_Model_System_Config_Source_Status::STATUS_ENABLED){	?>
+									<div class="<?php echo $prefix; ?>title"><span><?php echo $itemStartLv->getTitle()?></span></div>
+									<?php } ?>
+									<div class="<?php echo $prefix; ?>content"><?php echo $this->getContentType($itemStartLv) ?></div>
+								</div>
+							<?php }?>
+								</li>
+					<?php continue; }?>
+					<?php if($itemStartLv->getColsNb()>1){ 
+							$divClassName = $prefix.'dropdown_'.$itemStartLv->getColsNb().'columns ';
+						} else {
+							$divClassName = $prefix.'dropdown_'.$itemStartLv->getColsNb().'column ';
+						}
+					if($this->isAlignRight($itemStartLv)){
+						$divClassName .= $prefix.'align_right';
+					} ?>
+					<?php if($itemStartLv->getDepth()+1 <= $config['end_level']){ ?>
+						<div class="<?php echo $divClassName ?> bgcolor8">	
+							<?php echo $this->getItemHtml($itemStartLv, true);	 ?>
+						</div>
+					<?php } ?>
+					</li>
+		<?php }	?>
+		</ul>
+	</div>
+</div>    
+	<!--End Module-->
+<?php else: ?>
+<p class="note-msg"><?php echo $this->__('There are no items matching the selection.') ?></p>
+<?php endif; ?>
+<script type="text/javascript">
+	$jsmart('document').ready(function($){
+		$i = 0;
+		$('ul.sm_megamenu_menu').append('<span class="more-view"></span>');
+		$('ul.sm_megamenu_menu > li').each(function(){
+			$i ++;
+			if($i>8){
+				$(this).css('display', 'none');
+			}
+			//$('div.sm_megamenu_wrapper_vertical_menu').css('height', $('ul.sm_megamenu_menu').outerHeight());
+		});
+		$('ul.sm_megamenu_menu > .more-view').click(function(){
+			if($(this).hasClass('open')){
+				$i=0;
+				$('ul.sm_megamenu_menu > li').each(function(){
+					$i ++;
+					if($i>8){
+						$(this).hide(300);
+					}
+				});
+				$(this).removeClass('open');
+			}else{
+				$i=0;
+				$('ul.sm_megamenu_menu > li').each(function(){
+					$i ++;
+					if($i>8){
+						$(this).show(300);
+					}
+				});
+				$(this).addClass('open');
+			}
+		});
+	})
+</script>

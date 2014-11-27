@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 24593 2012-01-05 20:35:02Z matthew $
+ * @version    $Id: File.php 23330 2010-11-14 20:08:09Z mabe $
  */
 
 
@@ -30,7 +30,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_File extends Zend_Cache_Core
@@ -110,11 +110,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
         clearstatcache();
         $i = 0;
         foreach ($masterFiles as $masterFile) {
-            if (file_exists($masterFile)) {
-                $mtime = filemtime($masterFile);
-            } else {
-                $mtime = false;
-            }
+            $mtime = @filemtime($masterFile);
 
             if (!$this->_specificOptions['ignore_missing_master_files'] && !$mtime) {
                 Zend_Cache::throwException('Unable to read master_file : ' . $masterFile);
@@ -123,7 +119,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
             $this->_masterFile_mtimes[$i] = $mtime;
             $this->_specificOptions['master_files'][$i] = $masterFile;
             if ($i === 0) { // to keep a compatibility
-                $this->_specificOptions['master_file'] = $masterFile;
+                $this->_specificOptions['master_files'] = $masterFile;
             }
 
             $i++;

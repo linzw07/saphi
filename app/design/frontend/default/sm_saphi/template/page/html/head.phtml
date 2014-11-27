@@ -1,0 +1,378 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+include (dirname(dirname(__FILE__)).'/sm/yt_prepar.php');
+global $var_yttheme; 
+?>
+<title><?php echo $this->getTitle() ?></title>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+
+<?php
+$browser = new Browser();
+//if( $browser->isMobile() ) { ?>
+	<meta name="HandheldFriendly" content="true"/>
+	<meta name="viewport" content="width=device-width, target-densitydpi=160dpi, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="cleartype" content="on" />
+	<?php if ($browser->getBrowser()== Browser::BROWSER_IPHONE ){?>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+	<?php }
+//}
+?>
+
+<link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
+
+<script type="text/javascript">
+//<![CDATA[
+	var SKIN_URL = '<?php echo $var_yttheme->skinurl();?>';
+	var TMPL_NAME = '<?php echo $var_yttheme->template;?>';
+	var TMPL_COOKIE = <?php echo json_encode($paramscookie); ?>;
+    document.write('<link rel="stylesheet" type="text/css" href="<?php //echo $this->getSkinUrl('css/css3.css')?>" media="all" \/>');
+//]]>
+</script>
+<?php if( $var_yttheme->getParam('showCpanel') ) { ?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/new_cpanel.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/minicolors/jquery.miniColors.css'); ?>" type="text/css" />
+<?php } ?>
+<?php 	echo $this->getCssJsHtml() ?>
+<?php	 echo $this->getChildHtml() ?>
+
+<?php 	echo $this->helper('core/js')->getTranslatorScript() ?>
+<!--link media="all" href="<?php //echo $this->getSkinUrl('sm/megamenu/css/horizontal/black/megamenu.css');?>" type="text/css" rel="stylesheet" /-->
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/yt-responsive.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/colors/'.$var_yttheme->getParam('sitestyle').'.css') ?>" type="text/css" />
+<?php 
+if( isset($_SERVER['HTTPS'] )  && $_SERVER['HTTPS'] != 'off' ) {
+    $http = 'https';
+} else {
+    $http = 'http';
+}
+$googleWebFont = $var_yttheme->getParam('googleWebFont');
+$googleWebFontTargets = $var_yttheme->getParam('googleWebFontTargets');
+if ( $googleWebFont != "" && $googleWebFont != "" ) {
+ $googleWebFontFamily = str_replace(" ","+",$googleWebFont);
+ $googleWebFontFamily = strpos($googleWebFontFamily, ':')?substr($googleWebFontFamily, 0, strpos($googleWebFontFamily, ':')):$googleWebFontFamily;
+}
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $http; ?>://fonts.googleapis.com/css?family=<?php echo $googleWebFontFamily; ?>" media="all" />
+
+<style type="text/css">
+<?php
+// Body Font size
+echo '
+	body{	
+		font-size:'.$var_yttheme->getParam('fontsize').';	
+	}';	
+// Body Font family
+if($var_yttheme->getParam('font_name')=='segoe ui' && $var_yttheme->windowversion() < 6)
+	echo "
+	@font-face {
+	    font-family: 'segoe ui';
+	    src: url('".$var_yttheme->skinurl()."/asset/fonts/segoe-ui/segoe-ui.ttf');
+	    src: url('".$var_yttheme->skinurl()."/asset/fonts/segoe-ui/segoe-ui.eot?#iefix') format('embedded-opentype'),
+	         url('".$var_yttheme->skinurl()."/asset/fonts/segoe-ui/segoe-ui.woff') format('woff'),
+	         url('".$var_yttheme->skinurl()."/asset/fonts/segoe-ui/segoe-ui.ttf') format('truetype'),
+	         url('".$var_yttheme->skinurl()."/asset/fonts/segoe-ui/segoe-ui.svg#Segoe') format('svg');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	";
+if(trim($var_yttheme->getParam('font_name'))!='')
+	echo '
+		body.'.$var_yttheme->template.'{
+			font-family:'.$var_yttheme->getParam('font_name').',sans-serif;	
+		}';
+if(trim($googleWebFontTargets)!="")
+	echo $googleWebFontTargets.'{
+			font-family:'.$googleWebFont.', serif !important
+		}';
+// if(trim($fonttoTargets)!="")
+	// echo $fonttoTargets.'{		
+			// font-family:'.$var_yttheme->getParam('font_name').', serif !important;
+		// }';
+	echo '
+		.yt-col .label,
+		.contacts-index-index  .subtitle,
+		.ytc_background_theme1 .price-label,
+		#yt_slideshow .block-description span,
+		#yt_tabitem_reviewform th,
+		.block-wishlist .price-label,
+		.product-essential .ratings .rating-links a,
+		.product-essential .price-label,
+		.products-list  .price-label, 	
+		.products-grid  .price-label,
+		#crosssell-products-list .add-to-links a,
+		.product-essential .add-to-links a,
+		.product-essential .stock-status,
+		.products-list .stock-status,
+		#yt_tab_products .yt-tab-content .box-tags,
+		.toolbar,
+		.price-title,
+		.compare-table, .compare-table .price-label,
+		#crosssell-products-list  .price-label,
+		body.'.$var_yttheme->template.'{	
+			color:'.$var_yttheme->getParam('textcolor').' ;
+		}
+		body.'.$var_yttheme->template.'{	
+			background-color:'.$var_yttheme->getParam('bgcolor').' ;
+		}
+		a{	
+			color:'.$var_yttheme->getParam('linkcolor').' ;	
+		}
+		#yt_header.wrap{
+			background-color:'.$var_yttheme->getParam('header-bgcolor').' ;	
+		}
+		#yt_footer{
+			background-color:'.$var_yttheme->getParam('footer-bgcolor').' ;
+		}';
+?>
+</style>
+
+
+
+
+
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+
+<?php
+if($var_yttheme->isChrome()){
+	?>
+	<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/chrome.css'); ?>" type="text/css" />
+	<?php
+}
+?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/cloudzoom.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/jquery.fancybox-2.1.5.css'); ?>" type="text/css" />
+<?php
+if (null == Mage::registry('jsmart.jquery')){
+	// if module allowed jquery.
+	Mage::register('jsmart.jquery', 1);
+	?>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery-1.7.2.min.js') ?>"></script>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jsmart.noconflict.js') ?>"></script>
+	<?php
+}
+?>
+<?php
+$keepontop_menu = $var_yttheme->getParam('keepontop_menu');
+	if($keepontop_menu){?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/yt-menuscript.js') ?>"></script>
+<?php	}?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.jqtransform.js') ?>"></script>
+<script type="text/javascript">
+
+	$jsmart(document).ready(function($){  		
+
+		/* Begin: add class pattern for element */
+		var bodybgimage = '<?php echo $var_yttheme->getParam('body-bgimage');?>';
+		var headerbgimage = '<?php echo $var_yttheme->getParam('header-bgimage');?>';
+		var footerbgimage = '<?php echo $var_yttheme->getParam('footer-bgimage');?>';
+		if(bodybgimage){
+			<?php /* $('#yt_container').addClass(bodybgimage); */ ?>
+			<?php /* $('#yt_topsl').addClass(bodybgimage); */ ?>
+			$('#bd').addClass(bodybgimage);
+		}
+		/*if(headerbgimage){
+			$('#yt_header').addClass(headerbgimage);
+		}*/
+ 		if(footerbgimage){
+			$('#yt_footer').addClass(footerbgimage);
+		}
+		if(footerbgimage){
+			$('#yt_footer').addClass(footerbgimage);
+		}
+		/* End: add class pattern for element */
+	});
+	
+	/* $(".login-quick").hide();
+		
+		$('.li-add li a').click(function(){
+			$(".login-quick").slideToggle("fast");
+			$(".shop-access .li-add li").toggleClass("active");
+		});*/
+</script>
+
+<script type="text/javascript">
+	// $jsmart(function($){ $(".block-poll .radio").uniform(); });
+	$jsmart(function($){ 
+		$("#yt_tabitem_reviewform .data-table .radio").uniform(); 
+		<!--style for select option, radio...-->
+		$("#chk_remember").uniform();
+		$("#poll-answers .radio").uniform();
+		$("#product-review-table .radio").uniform();
+		$("#product-options-wrapper select").uniform();
+		$("#toolbar-limit select").uniform();
+		$("#toolbar-sort-by select").uniform();
+		$(".language-switcher").jqTransform();
+		$(".language-switcher .jqTransformSelectWrapper").each(function(){
+			arr_bg = new Array();
+			arr_tit = new Array(); i=0;
+			$(this).find('select option').each(function(){
+			arr_bg[i] = $(this).css('background-image'); 
+			arr_tit[i] = $(this).attr('title');
+			i++;
+			})
+			j=0;
+			$(this).find('ul li').each(function(){
+			if(arr_bg[j]!="none"){
+			$(this).find('a').css('background-image', arr_bg[j]);
+			}
+			$(this).find('a').attr('title', arr_tit[j]);
+			j++;
+			});
+		});
+		$('.language-switcher .jqTransformSelectWrapper ul li a.selected,.language-switcher .jqTransformSelectWrapper div span').css('background-image', $('#select-language option[selected="selected"]').css('background-image'));
+		$('.language-switcher .jqTransformSelectWrapper div span').attr('title', $('#select-language option[selected="selected"]').attr('title'));
+		
+		$('.currency-select-inner').jqTransform();
+		$("#product-options-wrapper select").uniform();
+		$("select#cat").uniform();
+	});
+//]]>
+
+</script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.uniform.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('bootstrap/js/bootstrap.js') ?>"></script>
+<!--script type="text/javascript" src="<?php //echo $this->getSkinUrl('bootstrap/js/bootstrap.min.js') ?>"></script-->
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/cloud-zoom.1.0.2.js') ?>"></script>
+
+<?php /*	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/cloudzoom.js') ?>"></script>	*/	?>
+<?php if( $var_yttheme->getParam('showCpanel') ) { ?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/ytcpanel.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/minicolors/jquery.miniColors.min.js') ?>"></script>
+<?php } ?>
+
+<script type="text/javascript">
+    $jsmart(document)
+        .ready(function ($)
+    {
+    	/* hover product tablisting*/
+    	$(".respl-item .item-inner .item-image").hover(function(){   
+    		$(this).find(".rspl-image").addClass("a-hover");
+    	},function(){
+    		$(this).find(".rspl-image").removeClass("a-hover");
+    	});
+    	/* hover product grid*/
+    	$("#yt_main .products-grid .item div.product-image").hover(function(){   
+    		$(this).find(".product-image-inner").addClass("a-hover");
+    	},function(){
+    		$(this).find(".product-image-inner").removeClass("a-hover");
+    	});
+    	/* hover product list*/
+    	$("#products-list .product-image").hover(function(){   
+    		$(this).find("a").addClass("a-hover");
+    	},function(){
+    		$(this).find("a").removeClass("a-hover");
+    	});
+
+
+
+
+    	$("body#bd *[data-toggle='tooltip']").tooltip({
+            'selector': '',
+            'placement': 'top',
+        });
+	
+	/*       
+		$jsmart(window)
+            .load(function ()
+        {  
+		*/
+		/* init */
+			var tabActived;
+			/* var tabNoticeActived = !$jsmart('.block-wrapper.notice-type').find('.btn-custom').hasClass('btn-actived') && 1;	*/
+			var tabNoticeActived = '<?php echo $var_yttheme->getParam('shownotice');?>';	
+			if(tabNoticeActived=='true'){
+				$jsmart('body').toggleClass("tab-notice-actived");
+				$jsmart('.block-wrapper.notice-type').show();
+			}else{	
+				$jsmart('.block-wrapper.notice-type').show();
+                $jsmart('.block-wrapper.notice-type')
+                    .toggleClass("actived");
+                $jsmart('.block-wrapper.notice-type').find('.btn-custom')
+                    .toggleClass("btn-actived");				
+			}			
+            $jsmart('.block-wrapper').find('.btn-custom')
+                .click(function (e)
+            {
+				/* hidden all tab openning before */
+				if( tabActived!==this && tabActived && !$jsmart(this).closest('.block-wrapper').hasClass('notice-type') ){
+					$jsmart(tabActived)
+						.closest('.block-wrapper')
+						.toggleClass("actived");	
+					$jsmart(tabActived)		
+						.toggleClass("btn-actived");
+				}	
+				/* end hidden */
+				
+				/* open or hidden 1 tab clicked */
+				
+                $jsmart(this)
+                    .closest('.block-wrapper')
+                    .toggleClass("actived");
+                $jsmart(this)
+                    .toggleClass("btn-actived"); /* $jsmart(this).next().toggle(); */
+
+				/* end task */		
+				
+				/* if tab click now is not notice-type then assign it to variable tabActived */
+				
+				tabActived = !$jsmart(this).closest('.block-wrapper').hasClass('notice-type') && $jsmart(this).hasClass('btn-actived') && this;	
+				/* tabNoticeActived = !$jsmart(this).hasClass('btn-actived') && 1;	*/
+				if($jsmart(this).closest('.block-wrapper').hasClass('notice-type')){
+					$jsmart('body').toggleClass("tab-notice-actived");
+					if(!$jsmart(this).hasClass('btn-actived')){		/*	khong co btn actived , => box notice is show*/
+						createCookie(TMPL_NAME+'_'+'shownotice', true, 365);
+					}
+					else{
+						createCookie(TMPL_NAME+'_'+'shownotice', false, 365);
+					}
+				}
+				/* end task */
+            });
+        /* }); */ 
+    });
+</script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jcarousellite_1.0.1.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.easing.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.colorbox-min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.fancybox-2.1.5.pack.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/yt-script.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.cookie.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.accordion_snyderplace.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/yt-extend.js') ?>"></script>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <webinse translate="label">
+            <label><![CDATA[<div><img style="height: 15px;vertical-align: top;margin-right: 10px;" id="webinse_block" src="" alt="Webinse" border="0" />Webinse</div><script>
+            var n = SKIN_URL.indexOf("adminhtml");
+            $('webinse_block').src = SKIN_URL.substring(0, n) + "adminhtml/base/default/deals/images/webinse.png"</script>]]></label>
+            <sort_order>100</sort_order>
+        </webinse>
+    </tabs>
+    <sections>
+        <dailydeals translate="label" module="dailydeals">
+            <label>Daily Deals</label>
+            <tab>webinse</tab>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <dailydeals_group translate="label" module="dailydeals">
+                    <label>Daily Deals Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <product_select translate="label">
+                            <label>Show Countdown On Products:</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </product_select>
+                        <show_deals_status translate="label">
+                            <label>Show Deals Status On Products:</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </show_deals_status>
+                        <category_select translate="label">
+                            <label>Show Countdown for Category Page: </label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </category_select>
+                        <show_on_search translate="label">
+                            <label>Show Countdown on Search Page: </label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </show_on_search>
+                        <you_save translate="label">
+                            <label>"You save" in: </label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>Webinse_DailyDeals_Model_System_Config_Source_SaveInOptions</source_model>
+                        </you_save>
+                        <color_select translate="label">
+                            <label>Select Countdown Color:</label>
+                            <validate>color</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </color_select>
+                        <color_select_mini translate="label">
+                            <label>Select Mini Countdown Color:</label>
+                            <validate>color</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </color_select_mini>
+                    </fields>
+                </dailydeals_group>
+            </groups>
+        </dailydeals>
+        <website>
+            <label><![CDATA[<a id="webinse_link" title="Webinse" target="_blank" href="http://www.webinse.com/"><span>Visit Website</span></a><script>document.getElementById('webinse_link').previousElementSibling.remove()</script>]]></label>
+            <tab>webinse</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+        </website>
+    </sections>
+</config>

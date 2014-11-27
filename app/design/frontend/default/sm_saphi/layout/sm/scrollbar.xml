@@ -1,0 +1,20 @@
+<?xml version="1.0"?>   
+<layout version="1.0">
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>sm/scrollbar/css/sm_scrollbar.css</stylesheet></action>
+			<action method="addCss"><stylesheet>sm/scrollbar/css/jquery.mCustomScrollbar.css</stylesheet></action>
+        </reference>
+    </default>
+	<scrollbar_index_index>
+		<reference name="content">
+			<block type="scrollbar/list" name="scrollbar.list.default">
+				<action method="setConfig">
+					<theme>vertical</theme>
+				</action>
+			</block>
+		</reference>
+		<!--remove name="left" /-->
+	</scrollbar_index_index>	
+</layout>   
+	

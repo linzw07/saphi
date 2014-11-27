@@ -1,0 +1,171 @@
+.serachbox-pro-pretext, 
+.serachbox-pro-posttext{
+	margin: 10px 0;
+	width: 100%;
+}
+.serachbox-pro-posttext{
+	/*margin:20px 0;*/
+}
+.sm-serachbox-pro{
+	position: relative;
+}
+.sm-serachbox-pro .sm-searchbox-popular{
+	line-height:normal;
+}
+.sm-serachbox-pro .sm-searchbox-advanced{
+	
+}
+.sm-serachbox-pro .sm-searchbox-advanced a{
+	text-decoration: none;
+	font-size:14px;
+	position:absolute;
+	top:4px;
+}
+.sm-serachbox-pro .sm-searchbox-advanced a:hover{
+	text-decoration: underline;
+}
+.sm-serachbox-pro .sm-searchbox-popular{ text-align:right; margin-top:20px;}
+.sm-serachbox-pro .sm-searchbox-popular .sm-searchbox-popular-title{
+	display: inline-block;
+	font-size:116.66%;
+	margin-right: 15px;
+	position: relative;
+}
+.sm-searchbox-popular .sm-searchbox-keyword{
+	display:inline-block;
+	vertical-align: -5px;
+	margin-right: 188px;
+}
+.sm-serachbox-pro .sm-searchbox-keyword-list {
+    float: left; 
+}
+.sm-serachbox-pro .sm-searchbox-keyword-list > li{
+	float: left;
+	line-height: 17px;
+}
+.sm-serachbox-pro .sm-searchbox-keyword-list > li a {
+    float: left;
+	margin-right: 10px;
+	color:#909090;
+	font-size:100%;
+	text-decoration: none;
+	line-height:18px;
+}
+.sm-serachbox-pro .sm-searchbox-keyword-list > li a:hover{
+	text-decoration: underline;
+}
+.sm-serachbox-pro .sm-searchbox-keyword-list > li a.sm-searchbox-more {cursor:pointer;}
+.sm-serachbox-pro .sm-searchbox-keyword-list > li a.sm-searchbox-more:hover {
+	text-decoration: underline;
+}
+.sm-serachbox-pro .sm-searbox-content {
+	margin-top:50px;
+	text-align:right;
+}
+#search_mini_form{float:right; margin-left:20px;}
+.sm-serachbox-pro .sm-searbox-content .form-search{
+	text-align: right;	
+}
+.sm-serachbox-pro .sm-searbox-content .form-search  .search-inner{
+	border: 1px solid #ebebeb;
+	float:left;
+	margin-right: 1px;
+}
+
+#uniform-cat span,#uniform-cat select{ 
+	display: block; width: 165px !important; 
+	white-space: nowrap;
+	color: #b9b6b6; 
+	font-size:100%;
+	cursor:pointer;
+	margin-top: 10px;
+	line-height: 20px;
+}
+#uniform-cat span{ 
+	text-align: center;
+	background:url(../images/icon-arrow.png) #fff no-repeat 144px 7px;
+}
+#uniform-cat select{ 
+	opacity: 0; 
+	text-align: left;
+}
+
+.sm-serachbox-pro .sm-searbox-content .form-search .search-inner >  input{
+	background: #FFFFFF;
+	padding: 2px 10px;
+	border:none !important;
+	box-shadow:none;
+	color: #c8c8c8;
+	width:311px; 
+	font-size:100%;
+	border:none;
+	font-family:inherit;
+	margin:6px 0 6px 0;
+	height: 26px;
+}
+
+
+.sm-serachbox-pro .sm-searbox-content .form-search .button{
+	float:right;
+}
+
+.sm-serachbox-pro .sm-searbox-content .form-search .categories-drop {
+    background-color:#FFF;	
+	float:left;
+	position:relative;
+	z-index:1;
+	color:#686868;
+	width: 165px;
+	overflow: hidden;
+}
+.sm-serachbox-pro .sm-searbox-content .form-search .categories-drop option.searchablecategories{ font-weight:bold !important;}
+.sm-serachbox-pro .sm-searbox-content .form-search .categories-drop > select{
+	padding: 0px;
+	display:inline-block;	
+	color: #b9b6b6;	
+	width: 179%;
+	font-size:100%;
+	background:none;
+	border:none;
+	font-family:inherit;	
+	height:18px;
+	line-height:18px;
+	cursor:pointer;	
+	overflow:hidden;
+	background:url(../images/icon-arrow.png) #fff no-repeat 79% 6px;
+	margin: 12px 0 0 0;
+}
+/*x:-o-prefocus, .sm-serachbox-pro .sm-searbox-content .form-search .categories-drop > select {
+  width: 100%;
+}  for opera */
+.sm-serachbox-pro .sm-searbox-content .form-search .categories-drop > select option{
+	font-family:inherit;
+}
+
+
+.sm-serachbox-pro .sm-searbox-content .form-button.button > span > span {
+    background:url(../images/icon-search.png) no-repeat 14px 13px;   
+    white-space: nowrap;	
+	text-indent:-999em;
+	display:block;
+	overflow:hidden;
+	padding: 13px 24px;
+}
+
+.sm-serachbox-pro select option {
+    /*padding: 5px 10px;*/
+}
+#uniform-cat{ position: relative;}
+.sm-serachbox-pro select{
+	position: absolute; top: -16px; left: 0;
+}
+.sm-serachbox-pro input.input-text,.sm-serachbox-pro textarea {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #C1CCD1;
+	font-size:15px;
+	margin: 0;
+	padding: 0;
+}
+.clr{ clear:both;}
+
+

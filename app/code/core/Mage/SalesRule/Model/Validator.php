@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,13 +93,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_cartFixedRuleUsedForAddress = array();
-
-    /**
-     * Defines if rule with stop further rules is already applied
-     *
-     * @var bool
-     */
-    protected $_stopFurtherRules = false;
 
     /**
      * Init validator
@@ -313,10 +306,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $appliedRuleIds = array();
         foreach ($this->_getRules() as $rule) {
-            if ($this->_stopFurtherRules) {
-                break;
-            }
-
             /* @var $rule Mage_SalesRule_Model_Rule */
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
@@ -511,7 +500,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $this->_addDiscountDescription($address, $rule);
 
             if ($rule->getStopRulesProcessing()) {
-                $this->_stopFurtherRules = true;
                 break;
             }
         }
@@ -626,11 +614,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                             $totalWeeeDiscount += $weeeDiscount;
                         }
 
-                        if (!$totalBaseWeeeDiscount && !$totalWeeeDiscount) {
-                            //skip further processing if there is no weee discount associated with the item
-                            continue;
-                        }
-
                         $discountPercentage = $item->getDiscountPercent();
 
                         $totalWeeeDiscount = $this->_roundWithDeltas($discountPercentage,
@@ -651,9 +634,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                                 $item, null, 'total_weee_discount', $totalWeeeDiscount);
                         }
 
+                        $item->setDiscountAmount($item->getDiscountAmount() + $totalWeeeDiscount);
+                        $item->setBaseDiscountAmount($item->getBaseDiscountAmount() + $totalBaseWeeeDiscount);
                         if ($includeInSubtotal) {
-                            $item->setDiscountAmount($item->getDiscountAmount() + $totalWeeeDiscount);
-                            $item->setBaseDiscountAmount($item->getBaseDiscountAmount() + $totalBaseWeeeDiscount);
                             $address->addTotalAmount('discount', -$totalWeeeDiscount);
                             $address->addBaseTotalAmount('discount', -$totalBaseWeeeDiscount);
                         } else {
@@ -899,7 +882,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 );
             }
         }
-        $this->_stopFurtherRules = false;
+
         return $this;
     }
 
@@ -1053,28 +1036,5 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     protected function _getHelper($name) {
         return Mage::helper($name);
-    }
-
-    /**
-     * Return items list sorted by possibility to apply prioritized rules
-     *
-     * @param array $items
-     * @return array $items
-     */
-    public function sortItemsByPriority($items)
-    {
-        $itemsSorted = array();
-        foreach ($this->_getRules() as $rule) {
-            foreach ($items as $itemKey => $itemValue) {
-                if ($rule->getActions()->validate($itemValue)) {
-                    unset($items[$itemKey]);
-                    array_push($itemsSorted, $itemValue);
-                }
-            }
-        }
-        if (!empty($itemsSorted)) {
-            $items = array_merge($itemsSorted, $items);
-        }
-        return $items;
     }
 }

@@ -1,0 +1,860 @@
+/*
+Item Name : CSS3 Mega Drop Down Menu
+Author URI : http://codecanyon.net/user/Pixelworkshop/
+Item URI : http://codecanyon.net/item/css3-mega-drop-down-menu/126387
+Version : 4.0
+*/
+
+/*
+
+TABLE OF CONTENTS
+
+01 MENU BAR
+02 DROP DOWN MENU
+03 CONTENT STYLING
+04 CONTACT FORM
+05 COLORS
+
+*/
+
+
+
+/*  _______________________________________
+
+	01 MENU BAR
+    _______________________________________  */
+
+
+
+.sm_megamenu_wrapper_menu {
+	width: 980px;
+	margin:0 auto;
+	display:block;
+	position: relative;
+	z-index:9999;
+}
+	.sm_megamenu_wrapper_menu .sm_megamenu_menu {
+		list-style:none;
+		width:940px;
+		margin:30px auto 0px auto;
+		height:65px;
+		padding:0px 20px 0px 20px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+	}
+.sm_megamenu_wrapper_menu_full {
+    width: 100%;
+    margin:0;
+    display:block;
+    position: relative;
+    z-index:9999;
+}
+	.sm_megamenu_wrapper_menu_full .sm_megamenu_menu {
+		list-style:none;
+		width:940px;
+		margin:0px auto 0px auto;
+		height:43px;
+		padding:0px 20px 0px 20px;
+	}
+.sm_megamenu_menu li {
+	float:left;
+	text-align:center;
+	position:relative;
+	margin-right:20px;
+	margin-top:6px;
+	border:none;
+}
+.sm_megamenu_menu li.fullwidth {
+	position: static !important;
+}
+.sm_megamenu_menu li:hover {
+	background:#161616;
+	border:1px solid #000000;
+	border-bottom:none;
+	margin-right:19px;
+	background: -moz-linear-gradient(top, #212121, #161616);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#212121), to(#161616));
+	background: -o-linear-gradient(top, #212121, #161616);
+	-moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -khtml-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+.sm_megamenu_menu li.sm_megamenu_nodrop:hover {
+	background:#161616;
+	border:1px solid #000000;
+	padding: 4px 10px 4px 9px;
+	background: -moz-linear-gradient(top, #212121, #161616);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#212121), to(#161616));
+	background: -o-linear-gradient(top, #212121, #161616);
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+.sm_megamenu_menu li.sm_megamenu_nodrop:hover a {
+	padding: 0px;
+}
+.sm_megamenu_menu li a {
+	color: #EEEEEE;
+	outline:0;
+	padding: 5px 10px 3px 10px;
+	text-decoration:none;
+	display:block;
+	text-shadow: 1px 1px 1px #000;
+}
+.sm_megamenu_menu li:hover a {
+	color:#ffffff;
+	text-shadow: none;
+	position:relative;
+	z-index:11;
+	border-bottom:1px solid #161616;
+	padding: 4px 9px 4px 9px;
+}
+.sm_megamenu_menu li:hover div a {
+	display:inline;
+}
+.sm_megamenu_menu li .sm_megamenu_drop {
+	padding-right:27px;
+	background:url("img/drop_dark.png") no-repeat right 13px;
+}
+.sm_megamenu_menu li:hover .sm_megamenu_drop {
+	padding-right:27px;
+	background:url("img/drop_dark.png") no-repeat right 12px;
+}
+
+/* Right aligned menu item */
+
+.sm_megamenu_menu .sm_megamenu_right {
+	float:right;
+	right:0;
+	margin-right:0px;
+}
+.sm_megamenu_menu li.sm_megamenu_right:hover {
+	margin-right:-1px;
+}
+
+
+
+/*  _______________________________________
+
+	02 DROP DOWN MENU
+    _______________________________________  */
+
+
+
+/* Left & right aligned common styles */
+
+.sm_megamenu_menu .sm_megamenu_dropdown_1column, 
+.sm_megamenu_menu .sm_megamenu_dropdown_2columns, 
+.sm_megamenu_menu .sm_megamenu_dropdown_3columns, 
+.sm_megamenu_menu .sm_megamenu_dropdown_4columns,
+.sm_megamenu_menu .sm_megamenu_dropdown_5columns,
+.sm_megamenu_menu .sm_megamenu_dropdown_6columns,
+.sm_megamenu_menu .sm_megamenu_dropdown_fullwidth {
+	margin:4px auto;
+	left:-999em;
+	position:absolute;
+	background:#161616;
+	border:1px solid #000000;
+	padding:10px;
+	text-align:left;
+	-moz-border-radius: 0px 5px 5px 5px;
+    -webkit-border-radius: 0px 5px 5px 5px;
+    -khtml-border-radius: 0px 5px 5px 5px;
+    border-radius: 0px 5px 5px 5px;
+	background: -moz-linear-gradient(top, #161616, #0A0A0A);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#161616), to(#0A0A0A));
+	background: -o-linear-gradient(top, #161616, #0A0A0A);
+}
+
+/* Drop Downs Sizes */
+
+.sm_megamenu_menu .sm_megamenu_dropdown_1column {width: 145px;}
+.sm_megamenu_menu .sm_megamenu_dropdown_2columns {width: 300px;}
+.sm_megamenu_menu .sm_megamenu_dropdown_3columns {width: 455px;}
+.sm_megamenu_menu .sm_megamenu_dropdown_4columns {width: 610px;}
+.sm_megamenu_menu .sm_megamenu_dropdown_5columns {width: 765px;}
+.sm_megamenu_menu .sm_megamenu_dropdown_6columns {width: 920px;}
+.sm_megamenu_menu .sm_megamenu_dropdown_fullwidth {
+	width: 920px;
+	-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    -khtml-border-radius:5px;
+    border-radius:5px;
+}
+.sm_megamenu_menu li ..sm_megamenu_first_fullwidth {
+	-moz-border-radius: 0px 5px 5px 5px;
+    -webkit-border-radius: 0px 5px 5px 5px;
+    border-radius: 0px 5px 5px 5px;
+}
+
+/* Showing Drop Down on Mouse Hover - Left aligned */
+
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_1column, 
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_2columns, 
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_3columns,
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_4columns,
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_5columns, 
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_6columns {
+	left:-1px;
+	top:46px;
+}
+.sm_megamenu_menu li:hover .sm_megamenu_dropdown_fullwidth {
+	left:21px;
+	top:33px;
+	display: block;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu li:hover .sm_megamenu_dropdown_fullwidth {
+	left:50%;
+	margin-left:-470px;
+	top:32px;
+	display: block;
+}
+
+/* Showing Drop Down on Mouse Hover - Right aligned */
+
+.sm_megamenu_menu li .sm_megamenu_align_right {
+	/* Rounded Corners */
+	-moz-border-radius: 5px 0px 5px 5px;
+    -webkit-border-radius: 5px 0px 5px 5px;
+    border-radius: 5px 0px 5px 5px;
+}
+.sm_megamenu_menu li:hover .sm_megamenu_align_right {
+	left:auto;
+	right:-1px;
+	top:46px;
+}
+.sm_megamenu_menu li.sm_megamenu_right:hover .sm_megamenu_dropdown_fullwidth {
+	right:18px;
+	top:33px;
+}
+
+/* Columns Sizes */
+
+.sm_megamenu_menu .sm_megamenu_col_1,
+.sm_megamenu_menu .sm_megamenu_col_2,
+.sm_megamenu_menu .sm_megamenu_col_3,
+.sm_megamenu_menu .sm_megamenu_col_4,
+.sm_megamenu_menu .sm_megamenu_col_5,
+.sm_megamenu_menu .sm_megamenu_col_6 {
+	display:inline;
+	float: left;
+	position: relative;
+	margin-left: 10px;
+}
+.sm_megamenu_menu .sm_megamenu_col_1 {width:145px;}
+.sm_megamenu_menu .sm_megamenu_col_2 {width:300px;}
+.sm_megamenu_menu .sm_megamenu_col_3 {width:455px;}
+.sm_megamenu_menu .sm_megamenu_col_4 {width:610px;}
+.sm_megamenu_menu .sm_megamenu_col_5 {width:765px;}
+.sm_megamenu_menu .sm_megamenu_col_6 {width:920px;}
+
+/* IMPORTANT */
+
+/* Use the .sm_megamenu_firstcolumn class for the items that stick to the left edge of the dropdown */
+.sm_megamenu_menu ..sm_megamenu_firstcolumn {
+	margin-left: 0; /* Clearing margin & left */
+	clear: left;
+}
+
+
+
+/*  _______________________________________
+
+	03 CONTENT STYLING
+    _______________________________________  */
+
+
+
+.sm_megamenu_menu p,
+.sm_megamenu_menu ul,
+.sm_megamenu_menu li,
+.sm_megamenu_menu h2,
+.sm_megamenu_menu h3 {
+	color:#ffffff;
+	font-size:14px; 
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:21px;
+	text-align:left;
+}
+.sm_megamenu_menu p {
+	font-size:12px;
+	line-height:18px;
+	margin:0;
+	margin-bottom:10px;
+	text-shadow:1px 1px #000000;
+}
+.sm_megamenu_menu .strong {
+	font-weight:bold;
+}
+.sm_megamenu_menu .italic {
+	font-style:italic;
+}
+.sm_megamenu_menu h2, 
+.sm_megamenu_menu h3 {
+	text-shadow:1px 1px #000000;
+	border-bottom:1px solid #333333;
+	margin-top:7px;
+}
+.sm_megamenu_menu h2 {
+	font-weight:400;
+	font-size:21px;
+	margin-bottom:18px;
+	padding-bottom:11px;
+}
+.sm_megamenu_menu h3 {
+	font-weight:600;
+	font-size:14px;
+	margin-bottom:14px;
+	padding-bottom:7px;
+}
+.sm_megamenu_menu li:hover div a {
+	text-decoration:none;
+	text-shadow:none;
+	border:none;
+	padding:0;
+}
+.sm_megamenu_menu .pusher { /* Use this pucher if you want to give more vertical spacing between your rows of content */
+	margin-top:18px;
+}
+
+/* Icon paragraphs */
+
+.sm_megamenu_menu .help,
+.sm_megamenu_menu .favorite,
+.sm_megamenu_menu .mail,
+.sm_megamenu_menu .print {
+	padding-left:36px;
+	margin-bottom:18px;
+}
+.sm_megamenu_menu .help {background:url("img/help.png") no-repeat 0px 2px;}
+.sm_megamenu_menu .favorite {background:url("img/favorite.png") no-repeat 0px 2px;}
+.sm_megamenu_menu .mail {background:url("img/mail.png") no-repeat 0px 2px;}
+.sm_megamenu_menu .print {background:url("img/print.png") no-repeat 0px 2px;}
+
+/* Images styles */
+
+.sm_megamenu_menu .imgshadow_dark { /* Better style on dark background */
+	background:#FFFFFF;
+	padding:4px;
+	border:1px solid #333333;
+	margin-top:5px;
+	-moz-box-shadow:0px 0px 5px #000000;
+	-webkit-box-shadow:0px 0px 5px #000000;
+	box-shadow:0px 0px 5px #000000;
+}
+.sm_megamenu_menu .imgshadow_light { /* Better style on light background */
+	background:#FFFFFF;
+	padding:4px;
+	border:1px solid #777777;
+	margin-top:5px;
+	-moz-box-shadow:0px 0px 5px #000000;
+	-webkit-box-shadow:0px 0px 5px #000000;
+	box-shadow:0px 0px 5px #000000;
+}
+.sm_megamenu_menu .img_left { /* Image sticks to the left */
+	width:auto;
+	float:left;
+	margin:2px 15px 5px 0px;
+}
+.sm_megamenu_menu .img_right { /* Image sticks to the right */
+	width:auto;
+	float:right;
+	margin:2px 0px 5px 15px;
+}
+
+/* Box styles */
+
+.sm_megamenu_menu li .black_box,
+.sm_megamenu_menu li .dark_grey_box {
+	color: #eeeeee;
+	text-shadow: 1px 1px 1px #000;
+	padding:4px 6px 4px 6px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+	background-color:#0A0A0A;
+	-webkit-box-shadow:inset 0 0 3px #000000;
+	-moz-box-shadow:inset 0 0 3px #000000;
+	box-shadow:inset 0 0 3px #000000;
+}
+
+/* Standard lists styles */
+
+.sm_megamenu_menu li ul {
+	list-style:none;
+	padding:0;
+	margin:0 0 12px 0;
+}
+.sm_megamenu_menu li ul li {
+	font-size:12px;
+	line-height:24px;
+	position:relative;
+	text-shadow: 1px 1px 1px #000000;
+	padding:0;
+	margin:0;
+	float:left;
+	text-align:left;
+	width:145px;
+}
+.sm_megamenu_menu li ul li a {
+	padding:0;
+}
+.sm_megamenu_menu li ul li:hover {
+	background:none;
+	border:none;
+	padding:0;
+	margin:0;
+}
+
+/* Greybox lists styles */
+
+.sm_megamenu_menu li .greybox li {
+	background:#0A0A0A;
+	border:1px solid #000000;
+	margin:0px 0px 4px 0px;
+	padding:4px 6px 4px 6px;
+	width:131px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+.sm_megamenu_menu li .greybox li:hover {
+	background:#141414;
+	border:1px solid #111111;
+	padding:4px 6px 4px 6px;
+	margin:0px 0px 4px 0px;
+}
+
+/* Other lists styles */
+
+.sm_megamenu_menu li .plus li {
+	background: url("img/plus_dark.png") left 6px no-repeat;
+	margin:0px 0px 4px 0px;
+	padding:0px 0px 0px 21px;
+	width:109px;
+}
+.sm_megamenu_menu li .plus li:hover {
+	background: url("img/plus_dark.png") left 6px no-repeat;
+	padding:0px 0px 0px 21px;
+	margin:0px 0px 4px 0px;
+}
+
+/* Social Icons */
+
+.sm_megamenu_menu li ul.social {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.sm_megamenu_menu li ul.social li {
+	padding-top:5px;
+	margin:0 12px 12px 0;
+	float:left;
+	position:relative;
+	display:inline;
+	width:32px;
+}
+.sm_megamenu_menu li ul.social li img {
+	border:none;
+}
+.sm_megamenu_menu li ul.social li:hover {
+	padding-top:5px;
+	margin:-1px 12px 12px 0;
+}
+.sm_megamenu_menu li ul.social li span {
+	display:none;
+}
+
+/* 2-Levels Drop Down */
+
+.sm_megamenu_menu .levels, .sm_megamenu_menu .levels ul { /* all lists */
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.sm_megamenu_menu li:hover .levels a {
+	display:block;
+}
+.sm_megamenu_menu .levels a {
+	display: block;
+	width: 10em;
+}
+.sm_megamenu_menu .levels a.parent, .sm_megamenu_menu .levels a.parent:hover {
+	background: url("img/drop2_dark.png") right center no-repeat;
+}
+.sm_megamenu_menu .levels li {
+	float: left;
+	width:150px;
+}
+.sm_megamenu_menu .levels li ul { /* second-level lists */
+	position: absolute;
+	background:#161616;
+	border:1px solid #000000;
+	top:-23px;
+	margin:15px 0px 0px 4px;
+	padding:6px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+	background: -moz-linear-gradient(top, #161616, #0A0A0A);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#161616), to(#0A0A0A));
+	background: -o-linear-gradient(top, #161616, #0A0A0A);
+	left: -999em;
+}
+.sm_megamenu_menu .levels li ul ul {
+	top:-23px;
+}
+.sm_megamenu_menu .levels li:hover ul ul, .sm_megamenu_menu .levels li:hover ul ul ul {
+	left: -999em;
+}
+.sm_megamenu_menu .levels li:hover ul, .sm_megamenu_menu .levels li li:hover ul, .sm_megamenu_menu .levels li li li:hover ul {
+	left: 142px;
+}
+
+
+
+/*  _______________________________________
+
+	04 CONTACT FORM
+    _______________________________________  */
+
+
+
+.sm_megamenu_menu #contact_form label, legend {
+	font-size: 12px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.sm_megamenu_menu #contact_form legend {
+	margin-bottom:10px;
+}
+.sm_megamenu_menu #contact_form {
+	display: block;
+	margin-bottom:10px;
+}
+.sm_megamenu_menu #contact_form label {
+	display: inline-block; 
+	float: left; 
+	height: 36px; 
+	line-height: 36px; 
+	width:80px;
+	font-size:12px; 
+}
+.sm_megamenu_menu #contact_form input,.sm_megamenu_menu  textarea,.sm_megamenu_menu  select {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:200px;
+	padding: 5px;
+	color: #FFFFFF; 
+	background-color:#222222;
+	border:1px solid #0A0A0A;
+	margin: 7px 0; 
+	-moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}   
+.sm_megamenu_menu #contact_form textarea {
+	resize:none;
+}   
+.sm_megamenu_menu #contact_form input:focus,.sm_megamenu_menu  textarea:focus,.sm_megamenu_menu  select:focus {
+	box-shadow: rgba(0,0,0, 0.7) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.7) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.7) 0px 0px 8px;  
+	border:1px solid #333333;
+}
+.sm_megamenu_menu #contact_form input:hover,.sm_megamenu_menu  textarea:hover,.sm_megamenu_menu  select:hover {
+	box-shadow: rgba(0,0,0, 0.3) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.3) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.3) 0px 0px 8px;  
+}
+.sm_megamenu_menu #contact_form .required {
+	color:#C00;
+}
+.sm_megamenu_menu #contact_form .form_buttons {
+	margin:4px 0 0 80px;
+}
+.sm_megamenu_menu #contact_form input.button {
+	width: 80px;
+	margin-right:10px;
+	cursor: pointer;
+	background-color:#1E1E1E;
+	border:1px solid #0A0A0A;
+	color:#cccccc;	
+	padding: 4px 7px 4px 7px;
+}
+.sm_megamenu_menu #contact_form input.button:hover {
+	color:#eeeeee;	
+	background-color:#222222;
+	border:1px solid #000000;
+}
+.sm_megamenu_menu #contact_form .special {
+	display:none;
+}
+.sm_megamenu_menu #contact_form .error,.sm_megamenu_menu  #contact_form .sent {
+	font-size:11px;
+	padding:2px 5px 2px 5px;
+	text-shadow:none;
+	-moz-border-radius:3px; 
+	-webkit-border-radius:3px; 
+	border-radius: 3px;
+}
+.sm_megamenu_menu #contact_form .error {
+	background:#FBE5E2; 
+	border:#F2A197 solid 1px; 
+	color:#992213;
+}
+.sm_megamenu_menu #contact_form .sent {
+	background:#E1F8CB; 
+	border:#C6D880 solid 1px; 
+	color:#37620d;
+}
+
+
+
+/*  _______________________________________
+
+	05 COLORS
+    _______________________________________  */
+
+
+
+/* Black */
+
+.sm_megamenu_menu_black {
+	background: #333;
+	background: -moz-linear-gradient(top, #555, #2a2a2a);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#555), to(#2a2a2a));
+	background: -o-linear-gradient(top, #555, #2a2a2a);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_black {
+	border: 1px solid #444;
+	border-top: 1px solid #777;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_black {
+	border-bottom: 1px solid #444;
+}
+.sm_megamenu_menu_black li:hover div a {
+	color:#CCC;
+}
+.sm_megamenu_menu_black li:hover div a:hover {
+	color:#EEE;
+}
+.sm_megamenu_menu_black li ul li a:hover {
+	color:#EEE;
+}
+
+/* Blue */
+
+.sm_megamenu_menu_blue {
+	background: #014464;
+	background: -moz-linear-gradient(top, #0272a7, #013953);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0272a7), to(#013953));
+	background: -o-linear-gradient(top, #0272a7, #013953);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_blue {
+	border: 1px solid #015b86;
+	border-top: 1px solid #029feb;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_blue {
+	border-bottom: 1px solid #015b86;
+}
+.sm_megamenu_menu_blue li:hover div a {
+	color:#0294da;
+}
+.sm_megamenu_menu_blue li:hover div a:hover {
+	color:#33bcfd;
+}
+.sm_megamenu_menu_blue li ul li a:hover {
+	color:#33bcfd;
+}
+
+/* Brown */
+
+.sm_megamenu_menu_brown {
+	background: #44391e;
+	background: -moz-linear-gradient(top, #736033, #382f19);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#736033), to(#382f19));
+	background: -o-linear-gradient(top, #736033, #382f19);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_brown {
+	border: 1px solid #5c4c29;
+	border-top: 1px solid #a28748;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_brown {
+	border-bottom: 1px solid #5c4c29;
+}
+.sm_megamenu_menu_brown li:hover div a {
+	color:#8b733e;
+}
+.sm_megamenu_menu_brown li:hover div a:hover {
+	color:#bfa670;
+}
+.sm_megamenu_menu_brown li ul li a:hover {
+	color:#bfa670;
+}
+
+/* Green */
+
+.sm_megamenu_menu_green {
+	background: #3e5718;
+	background: -moz-linear-gradient(top, #658c26, #354914);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#658c26), to(#354914));
+	background: -o-linear-gradient(top, #658c26, #354914);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_green {
+	border: 1px solid #52711f;
+	border-top: 1px solid #8bc135;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_green {
+	border-bottom: 1px solid #52711f;
+}
+.sm_megamenu_menu_green li:hover div a {
+	color:#6f992a;
+}
+.sm_megamenu_menu_green li:hover div a:hover {
+	color:#a3d158;
+}
+.sm_megamenu_menu_green li ul li a:hover {
+	color:#a3d158;
+}
+
+/* Light Blue */
+
+.sm_megamenu_menu_lightblue {
+	background: #52786b;
+	background: -moz-linear-gradient(top, #709e8e, #52786b);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#709e8e), to(#52786b));
+	background: -o-linear-gradient(top, #709e8e, #52786b);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_lightblue {
+	border: 1px solid #608c7d;
+	border-top: 1px solid #99b9ae;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_lightblue {
+	border-bottom: 1px solid #608c7d;
+}
+.sm_megamenu_menu_lightblue li:hover div a {
+	color:#608c7d;
+}
+.sm_megamenu_menu_lightblue li:hover div a:hover {
+	color:#99b9ae;
+}
+.sm_megamenu_menu_lightblue li ul li a:hover {
+	color:#99b9ae;
+}
+
+/* Orange */
+
+.sm_megamenu_menu_orange {
+	background: #d24900;
+	background: -moz-linear-gradient(top, #ff6717, #c14300);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ff6717), to(#c14300));
+	background: -o-linear-gradient(top, #ff6717, #c14300);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_orange {
+	border: 1px solid #f45500;
+	border-top: 1px solid #ff945b;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_orange {
+	border-bottom: 1px solid #f45500;
+}
+.sm_megamenu_menu_orange li:hover div a {
+	color:#f45500;
+}
+.sm_megamenu_menu_orange li:hover div a:hover {
+	color:#ff945b;
+}
+.sm_megamenu_menu_orange li ul li a:hover {
+	color:#ff945b;
+}
+
+/* Pink */
+
+.sm_megamenu_menu_pink {
+	background: #910045;
+	background: -moz-linear-gradient(top, #d50066, #80003d);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d50066), to(#80003d));
+	background: -o-linear-gradient(top, #d50066, #80003d);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_pink {
+	border: 1px solid #b30055;
+	border-top: 1px solid #ff1a87;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_pink {
+	border-bottom: 1px solid #b30055;
+}
+.sm_megamenu_menu_pink li:hover div a {
+	color:#e6006d;
+}
+.sm_megamenu_menu_pink li:hover div a:hover {
+	color:#ff4da1;
+}
+.sm_megamenu_menu_pink li ul li a:hover {
+	color:#ff4da1;
+}
+
+/* Purple */
+
+.sm_megamenu_menu_purple {
+	background: #6a5f71;
+	background: -moz-linear-gradient(top, #8c8094, #615867);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8c8094), to(#615867));
+	background: -o-linear-gradient(top, #8c8094, #615867);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_purple {
+	border: 1px solid #7b6f83;
+	border-top: 1px solid #ada5b3;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_purple {
+	border-bottom: 1px solid #7b6f83;
+}
+.sm_megamenu_menu_purple li:hover div a {
+	color:#7b6f83;
+}
+.sm_megamenu_menu_purple li:hover div a:hover {
+	color:#ada5b3;
+}
+.sm_megamenu_menu_purple li ul li a:hover {
+	color:#ada5b3;
+}
+
+/* Red */
+
+.sm_megamenu_menu_red {
+	background: #830701;
+	background: -moz-linear-gradient(top, #d70b02, #830701);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d70b02), to(#830701));
+	background: -o-linear-gradient(top, #d70b02, #830701);
+}
+.sm_megamenu_wrapper_menu .sm_megamenu_menu_red {
+	border: 1px solid #a40802;
+	border-top: 1px solid #fd190f;
+}
+.sm_megamenu_wrapper_menu_full .sm_megamenu_menu_red {
+	border-bottom: 1px solid #a40802;
+}
+.sm_megamenu_menu_red li:hover div a {
+	color:#d60a03;
+}
+.sm_megamenu_menu_red li:hover div a:hover {
+	color:#fd5953;
+}
+.sm_megamenu_menu_red li ul li a:hover {
+	color:#fd5953;
+}
+.sm_megamenu_icon {
+	padding-left:40px;
+    display: block;
+}
+.sm_megamenu_title .sm_megamenu_icon {
+	height:35px;
+}
+.sm_megamenu_title .sm_megamenu_icon span{
+	/*line-height:35px; */
+}

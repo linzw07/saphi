@@ -1,0 +1,158 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Tab Listing - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+$smarthelper = Mage::helper('tablisting/utils');
+$options  = $this->getConfigObject();
+$maxtitle = $options->item_title_max_characs;
+$post     = Mage::app()->getRequest()->getPost();
+$is_ajax  = Mage::app()->getRequest()->getPost('is_ajax');
+$cat_id   = Mage::app()->getRequest()->getPost('tab_cat_id');
+$order_id = Mage::app()->getRequest()->getParams('order_id');
+$count    = Mage::app()->getRequest()->getPost('ajax_tablisting_start');
+
+if( $is_ajax ){ 
+	$type     =  $post['data_type'];
+	if( $type == 'order' ){
+		$child_items = $this->getProductsOrder($order_id);
+	} else {
+		$child_items = $this->getProducts($cat_id);
+	}
+}
+if( !empty($child_items) ) { 
+	if( $is_ajax ){
+		$k = $count;
+	} else {
+		$k = 0;
+	}
+foreach( $child_items  as $item ){ $k++; 
+		$_product = Mage::getModel('catalog/product')->load($item->id);
+		$now = date("Y-m-d");
+		$newsFrom= substr($_product->getData('news_from_date'),0,10);
+		$newsTo=  substr($_product->getData('news_to_date'),0,10);
+		$specialprice = Mage::getModel('catalog/product')->load($item->id)->getSpecialPrice(); 
+		
+		
+	?>
+	<div class="respl-item">
+		<div class="item-inner">
+			<div class="item-image">
+				<a class="rspl-image" href="<?php echo $item->link ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true" title="<?php echo $item->title?>" >
+					<?php		
+						if($newsFrom != ''){	
+							if (($now>=$newsFrom && $now<=$newsTo)||($now>=$newsFrom && $newsTo =='')){ ?>
+                                <div class='new-item'></div>
+							<?php }
+							}else{
+							if(($newsTo != "") && $newsTo >= $now){	
+							?>
+								<div class='new-item'></div>
+							<?php }
+						}
+						if ($specialprice){?>
+							<div class='sale-item'><span><?php											
+								$saleof= abs(($specialprice/($_product->getPrice()))*100-100);
+								print_r(floor($saleof));
+							?></span></div>
+                        <?php }?>
+					<img src="<?php echo $item->image;?>"  alt="<?php echo $item->title;?>" />
+				</a>
+			</div>
+			<div class="item-info">
+				<?php if( $options->item_title_display == 1 ){?>
+				<div class="item-title ">
+					<a href="<?php echo $item->link ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true"  title="<?php echo $item->title?>" >
+						<?php echo $item->title; ?>
+					</a>
+				</div>
+				<?php }?>
+				<?php if( $options->item_desc_display == 1 ) {?>
+				<div class="item-desc">
+					<?php echo $item->description; ?>
+				</div>
+				<?php }?>
+				<?php if( $options->item_price_disp == 1 ) {	?>
+				<div class="item-price">
+					  <?php echo $item->price_html; ?>
+				</div>
+				<?php }?>
+				<?php if( $options->item_review_disp == 1 ) {?>
+				<div class="item-review">
+					<?php echo $item->review_html; ?>
+				</div>
+				<?php }?>
+
+
+				<!-- addtocart wishlist compare -->
+			<div class="group-btn">
+				<?php if( $options->item_cart_disp == 1 ) {?>
+				<?php if($_product->isSaleable()){ ?>
+				<!--<div class="item-addcart">
+					<a title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
+						<?php echo $this->__('Add to Cart') ?>
+					</a>
+				</div>-->
+				<a title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" class="btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">	
+						<span class="icon-cart"></span>
+						<span class="icon-cart-text">
+							<?php echo $this->__('Add To Cart') ?>
+						</span>
+				</a>
+				<?php }else{ ?>
+					<span class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></span>										
+				<?php }}?>
+	            <?php if ($this->helper('wishlist')->isAllow() && $options->item_wishlist_disp == 1 ) { ?>
+	            <!--<div class="item-wishlist">
+	            	<a href="<?php //echo $this->helper('wishlist')->getAddUrl($_product) ?>"><?php //echo $this->__('Add to Wishlist') ?></a>
+	            </div>-->
+	            <a title="<?php echo $this->__('Add to wishlist') ?>" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="btn-wishlist">
+						<span class="icon-wishlist"></span>
+						<span class="icon-wishlist-text">
+							<?php echo $this->__('Add To Wishlist') ?>
+						</span>
+				</a>
+	            <?php } ?>
+	            <?php if( $options->item_compare_disp == 1 && $_compareUrl=$this->getAddToCompareUrl($_product)){ ?>
+	            <!--<div class="item-compare">
+	            	<a href="<?php echo $_compareUrl ?>"><?php echo $this->__('Add to Compare') ?></a>
+	            </div>-->
+	            <a title="<?php echo $this->__('Add to Compare') ?>" href="<?php echo $_compareUrl ?>" class="btn-compare">
+						<span class="icon-compare"></span>
+						<span class="compare-text">
+							<?php echo $this->__('Add To Compare') ?>
+						</span>
+					</a>
+	            <?php } ?>
+			</div><!-- end addtocart wishlist compare -->
+
+            </div>
+		</div>
+	</div>
+	<?php $clear = 'clr1';
+	if ($k % 2 == 0) $clear .= ' clr2';
+	if ($k % 3 == 0) $clear .= ' clr3';
+	if ($k % 4 == 0) $clear .= ' clr4';
+	if ($k % 5 == 0) $clear .= ' clr5';
+	if ($k % 6 == 0) $clear .= ' clr6';
+	?>
+	<div class="<?php echo $clear; ?>"></div>
+<?php }
+}?>
+<script type="text/javascript">
+    $jsmart(document)
+        .ready(function ($)
+    {
+/* hover product tablisting*/
+    	$(".respl-item .item-inner .item-image").hover(function(){   
+    		$(this).find(".rspl-image").addClass("a-hover");
+    	},function(){
+    		$(this).find(".rspl-image").removeClass("a-hover");
+    	});
+
+    });
+</script>

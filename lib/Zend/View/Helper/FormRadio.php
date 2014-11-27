@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormRadio.php 24865 2012-06-02 01:02:32Z adamlundrigan $
+ * @version    $Id: FormRadio.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
@@ -123,14 +123,15 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         // ensure value is an array to allow matching multiple times
         $value = (array) $value;
 
-        // Set up the filter - Alnum + hyphen + underscore
-        #require_once 'Zend/Filter/PregReplace.php';
-        $pattern = @preg_match('/\pL/u', 'a') 
-            ? '/[^\p{L}\p{N}\-\_]/u'    // Unicode
-            : '/[^a-zA-Z0-9\-\_]/';     // No Unicode
-        $filter = new Zend_Filter_PregReplace($pattern, "");
-        
+        // XHTML or HTML end tag?
+        $endTag = ' />';
+        if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
+            $endTag= '>';
+        }
+
         // add radio buttons to the list.
+        #require_once 'Zend/Filter/Alnum.php';
+        $filter = new Zend_Filter_Alnum();
         foreach ($options as $opt_value => $opt_label) {
 
             // Should the label be escaped?
@@ -157,7 +158,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
             // Wrap the radios in labels
             $radio = '<label'
-                    . $this->_htmlAttribs($label_attribs) . '>'
+                    . $this->_htmlAttribs($label_attribs) . ' for="' . $optId . '">'
                     . (('prepend' == $labelPlacement) ? $opt_label : '')
                     . '<input type="' . $this->_inputType . '"'
                     . ' name="' . $name . '"'
@@ -166,17 +167,12 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
                     . $checked
                     . $disabled
                     . $this->_htmlAttribs($attribs)
-                    . $this->getClosingBracket()
+                    . $endTag
                     . (('append' == $labelPlacement) ? $opt_label : '')
                     . '</label>';
 
             // add to the array of radio buttons
             $list[] = $radio;
-        }
-        
-        // XHTML or HTML for standard list separator?
-        if (!$this->_isXhtml() && false !== strpos($listsep, '<br />')) {
-            $listsep = str_replace('<br />', '<br>', $listsep);
         }
 
         // done!

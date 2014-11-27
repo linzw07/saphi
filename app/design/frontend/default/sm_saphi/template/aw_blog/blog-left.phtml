@@ -1,0 +1,117 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Blog
+ * @version    1.2.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?> 
+
+<?php 
+function getSubTime($time1, $time2){
+    $now = new DateTime(date('m/d/y h:i:s', $time1));
+    $ref = new DateTime(date('m/d/y h:i:s', $time2));
+    return $now->diff($ref);
+}
+
+$posts = $this->getPosts(); 
+//echo "<pre>";
+//print_r($posts);
+$countitem = count($posts) ;
+?>
+<div id="messages_product_view">
+    <?php Mage::app()->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true)); ?> 
+    <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?> 
+</div>
+<div id="myCarousel1" class="carousel slide block" data-interval="0">
+
+<div class="sm-basenews">
+    <div class="block-title title-latestblog">
+        <h2><?php echo $this->__("Latest Blog"); ?></h2>
+        
+            <ul class="btn-p-n">
+                <li title="Previous">
+                    <a href="#myCarousel1" data-slide="next">
+                        <span class="h-prev"></span>
+                    </a>
+                </li>
+                <li title="Next">
+                    <a href="#myCarousel1" data-slide="prev">
+                        <span class="h-next"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+       <div class="w-carousel">
+        <div class="carousel-inner">
+                <!-- item -->
+                 <div class="item active">
+<?php $j=0; $i=0; foreach ($posts as $post): $j++; $i++;?>
+     
+    <div class="postWrapper <?php if($j==3 || $i == count($posts)): echo "item-last"; endif ?>">
+        <div class="postContent">
+            <div class="postTitle">
+                <h2>
+                    <a title="<?php echo $post->getTitle(); ?>" href="<?php echo $post->getAddress(); ?>" ><?php echo substr($post->getTitle(),0,25); ?></a>
+                </h2>
+                <div class="w-agoday">
+                    <span class="day">
+                        <?php           
+                        print_r(date('d',strtotime($post->getCreationTime()))+1);
+                        
+                        ?>
+                    </span>
+                    <span class="ago">
+                        <?php 
+                    $diff_time = getSubTime(time(), strtotime($post->getCreatedTime()));
+                    echo $diff_time->d ?> <?php echo ($diff_time->d >1)?Mage::helper('blog')->__('days ago'):Mage::helper('blog')->__('day ago'); 
+                    ?>
+                    </span>
+                </div>
+                
+             </div>
+             <div class="acd-description">                               
+                <?php echo substr(strip_tags($post->getShortContent()),0,70)."...";  ?> 
+                <a href='<?php echo $post->getAddress(); ?>' class="aw-blog-read-more">
+                    Read More</a>    
+            </div>
+            
+        </div>
+    </div>    
+       <?php if($j==3){ $countitem = $countitem-3; ?>
+                </div>              
+            <?php }?>
+            <!-- check item4?-->
+            <?php if($countitem > 0 && $j==3){ $j=0;?>
+                <div class="item">
+            <?php }?>
+    <!-- check item3-->
+<?php endforeach; ?> 
+    <?php if(count($posts)%3 !=0){?>
+
+                </div>
+            <?php }?>   
+    </div>
+    </div>
+    </div><!--end sm-basenews-home--> 
+</div><!-- end homeCarousel-->

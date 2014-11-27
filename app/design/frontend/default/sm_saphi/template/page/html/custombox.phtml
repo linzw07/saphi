@@ -1,0 +1,22 @@
+<?php if($this->getLayout()->createBlock('cms/block')->setBlockId('block-notice')->toHtml()){ ?>
+<div class="block-wrapper notice-type">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-notice')->toHtml() ?>	
+	<div class="btn-custom"><i class="icon"></i></div>
+</div>
+<?php } ?>
+
+<?php if($this->getLayout()->createBlock('cms/block')->setBlockId('block-likebox')->toHtml()){ ?>
+<div class="block-wrapper likebox-type">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-likebox')->toHtml() ?>	
+	<div class="btn-custom"><i class="icon"></i></div>
+</div>
+<?php } ?>
+
+<?php if($this->getLayout()->createBlock('cms/block')->setBlockId('block-custom')->toHtml()){ ?>
+<div class="block-wrapper custom-type">
+	<div class="block-wrapper-inner">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-custom')->toHtml() ?>	
+		<div class="btn-custom"><i class="icon"></i></div>
+	</div>
+</div>
+<?php } ?>

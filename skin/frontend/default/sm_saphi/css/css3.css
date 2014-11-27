@@ -1,0 +1,196 @@
+/* Using CSS3 for some visual enhancements. (Will be degraded
+	nicely for non-CSS3 browsers.)
+-------------------------------------------------------------*/
+/*.block-social li a{
+	transition: background-position 0.4s linear 0s;
+	-moz-transition: background-position 0.4s linear 0s;
+	-webkit-transition: background-position 0.4s linear 0s;
+}
+
+#nav li.over > ul {
+   box-shadow: 0 0 4px rgba(0,0,0,0.15);
+   -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.15);
+}
+
+
+#nav > li.active li a, #nav > li.over li a {
+-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.15) inset;
+-moz-box-shadow: 0 0 2px rgba(0,0,0,0.15) inset;
+box-shadow: 0 0 2px rgba(0,0,0,0.15) inset;
+}*/
+#nav > li.over > ul {
+
+}
+#nav li.over > ul li.over > ul {
+	 box-shadow:1px 2px 2px #666666;
+	 -webkit-box-shadow:1px 2px 2px #666666;
+	 -moz-box-shadow:1px 2px 2px #666666;
+	 -o-box-shadow:1px 2px 2px #666666;
+}
+
+
+#search_autocomplete  {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/*#nav li.active a, #nav li.over a {
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.25) inset;
+	-moz-box-shadow: 0 0 5px rgba(0,0,0,0.25) inset;
+	box-shadow: 0 0 5px rgba(0,0,0,0.25) inset;
+}*/
+.toolbar {
+/*
+	text-shadow:-1px 1px 1px #FFF;
+	-moz-text-shadow:-1px 1px 1px #FFF;
+	-webkit-text-shadow:-1px 1px 1px #FFF;
+	-o-text-shadow:-1px 1px 1px #FFF;
+*/}
+#yt-totop{
+	 border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-o-border-radius: 5px 5px 5px 5px;
+	transition: all 0.25s ease-in-out 0s;
+	-webkit-transition: all 0.25s ease-in-out 0s;
+    -moz-transition: all 0.25s ease-in-out 0s;
+	-o-transition: all 0.25s ease-in-out 0s;
+}
+#yt-totop:hover {
+    animation: 1.5s linear 1s normal none infinite arrowup;
+	-webkit-animation: 1.5s linear 1s normal none infinite arrowup;
+    -moz-animation: 1.5s linear 1s normal none infinite arrowup;
+}
+
+.button span, .form-button span {
+	border-radius: 3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	-o-border-radius:3px;
+}
+
+#yt_topsl .yt-box .block {
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+}
+#yt_pathway{
+	border-radius:8px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	-o-border-radius:8px;
+}
+#yt_pathway .pathway-inner{
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-o-border-radius:5px;
+}
+.yt-col .block .block-title {
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+}
+#yt_wrapper .block .block-content {
+/*
+	border-radius:0 0 5px 5px;
+	-webkit-border-radius:0 0 5px 5px;
+	-moz-border-radius:0 0 5px 5px;
+	-o-border-radius:0 0 5px 5px;
+*/}
+.block-tags .actions a {
+	border-radius:3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	-o-border-radius:3px;	
+}
+.block-tags .actions a span{
+	transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-webkit-transition:all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+}
+.yt-products-container{
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+}
+.yt-product-box{
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+}
+
+.products-list .product-shop .rating-links a.add-your-review,
+.product-essential .ratings .rating-links a.add-your-review,
+.product-essential .link-mail{
+	transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-webkit-transition:all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+}
+.products-list .product-image img{
+	-moz-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	transition: all 0.15s ease-out;
+}
+/*.products-list .product-image img:hover{
+	-moz-transform: scale(1.2) rotate(-5deg);
+	-webkit-transform: scale(1.2) rotate(-5deg);
+	-o-transform: scale(1.2) rotate(-5deg);
+	-ms-transform: scale(1.2) rotate(-5deg);
+	transform: scale(1.2) rotate(-5deg);
+}*/
+
+.shop-access .links li a,
+.tags-list li a,
+.yt-info ul li a{
+	transition: all 0.2s ease-in-out 0s;
+	-moz-transition: all 0.2s ease-in-out 0s;
+	-webkit-transition: all 0.2s ease-in-out 0s;
+	-o-transition: all 0.2s ease-in-out 0s;
+}
+#crosssell-products-list .add-to-links li a,
+.product-essential .add-to-links a,
+.block-company .block-content li a,
+.block-storeinfo .block-content li a,
+.block-customservice .block-content li a{
+	transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+}
+
+.ytc-content-slideshow div.captions p{
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-o-border-radius:5px;
+}
+.theme1 .next,
+.theme1 .prev,
+.ytc-content-slideshow .theme1 ul.pager li{
+	transition: all 0.3s ease-in-out 0s;
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+}
+.success-msg,
+.error-msg,
+.group-select,.fieldset {
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+}
+#yt_ads .main{
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-o-border-radius:5px;
+}

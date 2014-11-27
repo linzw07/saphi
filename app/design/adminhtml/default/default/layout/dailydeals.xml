@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <dd_part>
+        <reference name="head">
+            <action method="addJs"><script>dailydeals/moment-with-locales.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="deals.date.validator" template="deals/validate.phtml" />
+        </reference>
+    </dd_part>
+    <adminhtml_deals_list>
+        <reference name="head">
+            <action method="addCss">
+                <file>deals/css/style.css</file>
+            </action>
+        </reference>
+        <reference name="content">
+            <!--In the content we add our grid container-->
+            <block type="dailydeals/adminhtml_deals" name="deals.grid.container"/>
+        </reference>
+    </adminhtml_deals_list>
+    <adminhtml_deals_new>
+        <update handle="dd_part"/>
+        <reference name="content">
+            <!--In the content we add our grid container-->
+            <block type="dailydeals/adminhtml_deals_products" name="deals.new.container"/>
+        </reference>
+    </adminhtml_deals_new>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addJs">
+                <file>jscolor/jscolor.js</file>
+            </action>
+        </reference>
+    </adminhtml_system_config_edit>
+    <!--For Ajax-->
+    <adminhtml_deals_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="dailydeals/adminhtml_deals_grid" name="deals.grid"/>
+        </block>
+    </adminhtml_deals_grid>
+    <!--For Ajax-->
+    <adminhtml_deals_products>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="dailydeals/adminhtml_deals_products" name="deals.products"/>
+        </block>
+    </adminhtml_deals_products>
+    <adminhtml_catalog_product_edit>
+        <update handle="dd_part"/>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>daily_deals</name>
+                <block>dailydeals/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_deals_edit>
+        <update handle="dd_part"/>
+    </adminhtml_deals_edit>
+</layout>

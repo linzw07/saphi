@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -501,13 +501,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // register new capture
         if (!$invoice) {
-            $isSameCurrency = $this->_isSameCurrency();
-            if ($isSameCurrency && $this->_isCaptureFinal($amount)) {
+            if ($this->_isCaptureFinal($amount)) {
                 $invoice = $order->prepareInvoice()->register();
                 $order->addRelatedObject($invoice);
                 $this->setCreatedInvoice($invoice);
             } else {
-                if (!$skipFraudDetection || !$isSameCurrency) {
+                if (!$skipFraudDetection) {
                     $this->setIsFraudDetected(true);
                 }
                 $this->_updateTotals(array('base_amount_paid_online' => $amount));
@@ -519,7 +518,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $message = Mage::helper('sales')->__('Capturing amount of %s is pending approval on gateway.', $this->_formatPrice($amount));
             $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
             if ($this->getIsFraudDetected()) {
-                $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount, $this->getCurrencyCode()));
+                $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount));
                 $status = Mage_Sales_Model_Order::STATUS_FRAUD;
             }
         } else {
@@ -527,7 +526,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $state = Mage_Sales_Model_Order::STATE_PROCESSING;
             if ($this->getIsFraudDetected()) {
                 $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
-                $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount, $this->getCurrencyCode()));
+                $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount));
                 $status = Mage_Sales_Model_Order::STATUS_FRAUD;
             }
             // register capture for an existing invoice
@@ -1068,8 +1067,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     {
         // check for authorization amount to be equal to grand total
         $this->setShouldCloseParentTransaction(false);
-        $isSameCurrency = $this->_isSameCurrency();
-        if (!$isSameCurrency || !$this->_isCaptureFinal($amount)) {
+        if (!$this->_isCaptureFinal($amount)) {
             $this->setIsFraudDetected(true);
         }
 
@@ -1096,7 +1094,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         } else {
             if ($this->getIsFraudDetected()) {
                 $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
-                $message = Mage::helper('sales')->__('Order is suspended as its authorizing amount %s is suspected to be fraudulent.', $this->_formatPrice($amount, $this->getCurrencyCode()));
+                $message = Mage::helper('sales')->__('Order is suspended as its authorizing amount %s is suspected to be fraudulent.', $this->_formatPrice($amount));
                 $status = Mage_Sales_Model_Order::STATUS_FRAUD;
             } else {
                 $message = Mage::helper('sales')->__('Authorized amount of %s.', $this->_formatPrice($amount));
@@ -1422,15 +1420,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Format price with currency sign
      * @param float $amount
-     * @param null|string $currency
      * @return string
      */
-    protected function _formatPrice($amount, $currency = null)
+    protected function _formatPrice($amount)
     {
-        return $this->getOrder()->getBaseCurrency()->formatTxt(
-            $amount,
-            $currency ? array('currency' => $currency) : array()
-        );
+        return $this->getOrder()->getBaseCurrency()->formatTxt($amount);
     }
 
     /**
@@ -1545,16 +1539,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             return true;
         }
         return false;
-    }
-
-    /**
-     * Check whether payment currency corresponds to order currency
-     *
-     * @return bool
-     */
-    protected function _isSameCurrency()
-    {
-        return !$this->getCurrencyCode() || $this->getCurrencyCode() == $this->getOrder()->getBaseCurrencyCode();
     }
 
     /**

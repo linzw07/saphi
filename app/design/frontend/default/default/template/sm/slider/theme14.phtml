@@ -1,0 +1,150 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Slider - Version 1.1
+ # Copyright (c) 2009-2011 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.smartaddons.com
+-------------------------------------------------------------------------*/
+?>
+<?php
+	$_helper = $this->helper('catalog/output');	
+	$items = $this->getProducts();
+	$config = $this->getConfigObject();
+	$divid = rand().time(); 
+	$smarthelper= Mage::helper('slider/utils');
+	// Zend_Debug::dump($items);die;
+?>
+<?php if(count($items)>0):?>
+	<?php echo $this->getScriptTags(); ?>
+	<?php /*
+<style>
+	.so_slider_content h4.so_title a { color: <?php echo $config['product_title_color'];?>;}
+	.so_slider_content .so_description { color: <?php echo $config['product_description_color'];?>;}
+	.stickytooltip_theme4 .tooltip_title{ color: <?php echo $config['product_title_color'];?>;}
+	.stickytooltip_theme4 .tooltip_desc{ color: <?php echo $config['product_description_color'];?>;}	
+</style>	*/ ?>
+<script  type="text/javascript">
+//<![CDATA[
+$jsmart(document).ready(function($){
+	function getItemPerPage(){	//get width by class class_width, return number px
+		json_class_width = {
+			'wide'		: '<?php echo $config['item_per_page']?>',
+			'normal'	: '5',
+			'tablet'	: '4',
+			'stablet'	: '3',
+			'mobile'	: '2',
+			};
+		for(var key in json_class_width){
+			if ( json_class_width.hasOwnProperty ( key ) ){
+				// alert( key '=>' json_class_width [ key ] );
+				device = $.fn.detectDevice(); 
+				if(device){
+					return json_class_width[ device ];
+				}
+			}
+		}
+		return <?php echo $config['item_per_page']?>;	
+	}		
+	function init(){
+		item_per_page = parseInt(getItemPerPage());
+		// console.log("slider:"+item_per_page);
+		$('#slider-items').removeAttr('style');
+	    $("#so_slider_<?php echo $divid?>").SoSlider({
+			auto		: 	<?php echo $config['autoplay']?>,
+            type		:   '<?php echo $config['theme']?>',
+            speed		: 	<?php echo $config['duration']?>,
+			visible 	: 	item_per_page,
+            show_buttons:   <?php echo $config['control'] ?>,
+            divIds      :   '<?php echo $divid;?>',
+            <?php if($config['autoplay'] == 0):?>
+            circular    :   true,
+            <?php endif;?>
+            // start		:	<?php echo $config['start_item']?>,
+            start		:	6,
+			scroll		:   <?php echo $config['item_per_scroll']?>,
+			btnPrev		: 	'#so_basic_pre_<?php echo $divid?>',
+			btnNext		: 	'#so_basic_next_<?php echo $divid?>',
+			btnPause	: 	'#so_basic_pause_<?php echo $divid?>',
+			navigation	:   '#so_navigation_basic_<?php echo $divid?>'
+		});	
+	}
+	s = $("#so_navigation_basic_<?php echo $divid?>"),shtml=s.html(),slider_id='';
+	init();	
+  	$(window).resize(function(){
+		if (slider_id) clearTimeout(slider_id);
+		slider_id = setTimeout(function(){
+			// console.log($('body').width()+"-"+$('body').height());
+			s.children().empty().remove();s.html(shtml);
+			init();
+		}, 200);	
+  	})	
+});	
+//]]>
+</script>
+<div style="clear:both"></div>
+<!--Intro Text-->
+<?php if($config['pretext']): ?>
+<div style="text-align:left; width:<?php echo $config['width_module_article'] + 8; ?>px">
+	<?php  echo $config['pretext'];?>
+</div>
+<br/>
+<?php endif;?>
+<!--End Intro Text-->
+
+<!--Start Module-->
+<div id="yt_so_button_<?php echo $divid;?>" class="yt_article_slider yt_so_article_theme_nav" style="width:100%;position:relative;">
+	<?php /*<div class="title_slider_theme"style="display:<?php echo ($config['show_title_slider'])?"block":"none";?>;margin:0px 10px 10px 10px;"><?php echo $config['title_slider']?></div>*/ ?>
+	<div class="so_slider_content products-grid" id="so_slider_<?php echo $divid?>">
+			<ul id="slider-items">
+				<?php $i=0; foreach ($items as $item) {?>
+				<?php if($i==0){?>
+				<li class="item-first">
+					
+					<?php if($config['product_source']=='media'){ ?>
+						<?php include dirname(__FILE__) . '/media.phtml'; ?>					
+					<?php }else{ ?>
+						<?php include dirname(__FILE__) . '/product.phtml'; ?>		
+					<?php } ?>					
+					
+				</li> 
+				<?php }else{ ?>
+				<li>
+					
+					<?php if($config['product_source']=='media'){ ?>
+						<?php include dirname(__FILE__) . '/media.phtml'; ?>					
+					<?php }else{ ?>
+						<?php include dirname(__FILE__) . '/product.phtml'; ?>		
+					<?php } ?>					
+					
+				</li> 
+				<?php 
+					}
+				$i++;}	?>          
+			</ul>
+			<div class="fix-bl"></div><div class="fix-br"></div>
+			<?php /*
+			<script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+			*/ ?>
+
+	</div>
+	<div class="so_navigation_nav" id="so_navigation_basic_<?php echo $divid?>" style="top:<?php echo $config['product_image_height']/2?>px;<?php if($config['control'] == '1'):?>display:block<?php endif;?>">			
+		<div class="disabled so_pre buttons-hover_<?php echo $divid;?>" id="so_basic_pre_<?php echo $divid?>" style="<?php echo $config['displayButton'];?>"><a href="javascript:void(0)"><span style="<?php if($config['control'] == '1'):?>display:block !important<?php endif;?>"></span></a></div>
+		<div class="so_next buttons-hover_<?php echo $divid;?>" id="so_basic_next_<?php echo $divid?>" style="float: right;<?php echo $config['displayButton'];?>"><a href="javascript:void(0)"><span style="<?php if($config['control'] == '1'):?>display:block !important<?php endif;?>"></span></a></div>
+	</div>	
+	<span class="inner-border"></span>
+</div>
+
+<!--End Module-->
+<?php else: ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php endif; ?>
+
+<!--Start Footer Text-->
+<?php if($config['posttext']): ?>
+<br/>
+<div style="text-align:left; width:<?php echo $config['width_module_article'] + 8; ?>px">
+	<?php  echo $config['posttext'];?>
+</div>
+<?php endif;?>
+<!--End Footer Text-->

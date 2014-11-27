@@ -1,0 +1,131 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Base News - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+$options = $this->getConfigObject();
+
+$smarthelper= Mage::helper('basenews/utils');
+$list = $this->getCmspageInfo();
+$uniquied = 'sm_basenews_'.time().rand();
+$item_first = (int)$options->item_first_display;
+if($item_first >= (int)count($list)){
+	$item_first = count($list) ;
+}
+else if($item_first <= 0){
+	$item_first = 1;
+}else{
+	$item_first = $item_first ;
+}
+$countitem = count($list) ;
+$class_basic= 'respl01-'.$options->nb_column1.' respl02-'.$options->nb_column2.' respl03-'.$options->nb_column3.' respl04-'.$options->nb_column4;
+if(!empty($list)){
+	echo $this->getScriptTags();
+?>
+<div id="homeCarousel" class="carousel slide" data-interval="0">
+	
+	<?php if(!empty($options->pretext)){?>
+	<div class="acd-pretext">
+		<?php echo $options->pretext; ?>
+	</div>
+	<?php }?>
+	<div id="<?php echo $uniquied; ?>" class="sm-basenews sm-basenews-home <?php if( $options->theme == "theme2" ){echo " sm-basenews-accordion";}else{ echo " sm-basenews-basic";}?>">
+		<div class="title-latestblog"><?php echo $this->__("Latest From Blog"); ?>
+			<ul class="btn-p-n">
+				<li>
+					<a href="#homeCarousel" data-slide="prev">
+						<span class="h-prev"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#homeCarousel" data-slide="next">
+						<span class="h-next"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="acd-items  <?php if( $options->theme == "theme1" ){echo " ".$class_basic;}?>">
+			<div class="carousel-inner">
+				<!-- item -->
+				<div class="item active">
+			<?php $i= 0; $j=0; foreach($list as $item){ $i++; $j++; ?>
+			<div class="acd-item">
+								
+				<div class="acd-content-wrap cf" style="<?php if($options->theme == "theme2" && $i == count($list)){ echo "border-bottom:1px solid #ccc";}?>">
+					<div class="acd-content-wrap-inner cf">
+						<?php if(!empty($item->image)){?>
+						<?php if( $options->product_image_disp == 1 ) {?>
+						<div class="acd-image cf">
+							<a class="title" href="<?php echo $item->link ?>" title="<?php echo $item->title; ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+				    			<img style="width:<?php echo $options->product_image_width; ?>px; height:<?php echo $options->product_image_height; ?>px;" src="<?php echo $item->image;?>" alt="<?php echo $item->title;?>"/>
+							</a>
+						</div>
+						<?php }}?>
+						<div class="acd-header">
+							<?php if( $options->theme == "theme1" ){?>
+								<a href="<?php echo $item->link ?>" title="<?php echo $item->title; ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+							<?php }?>
+								<?php echo $item->title; ?>
+							<?php if( $options->theme == "theme1" ){?>
+								</a>
+							<?php }?>
+						</div>
+						<?php if( $options->item_desc_display == 1 && !empty($options->item_desc_display) || $options->product_details_page_link_disp == 1 && !empty($options->item_desc_display)) {?>
+						<div class="acd-content">
+							<div class="w-agoday"><span class="day"><?php echo $item->creation_time; ?></span><span class="ago"><?php echo $item->ago_days." days ago"; ?></span></div>
+						
+							<?php if( $options->item_desc_display == 1 ) {?>
+							<div class="acd-description">
+								<?php echo $item->desc; ?>
+								<?php if( $options->product_details_page_link_disp == 1 ) {?>
+								<div class="accd-readmore">
+									<a href="<?php echo $item->link ?>" title="<?php echo $item->title; ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+									<?php echo $this->__("Read more"); ?>
+									</a>
+								</div>
+								<?php } ?>
+							</div>
+							<?php }?>
+							
+						</div>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			<!-- check item3-->
+			<?php if($j==3){ $countitem = $countitem-3; ?>
+				</div>				
+			<?php }?>
+			<!-- check item4?-->
+			<?php if($countitem > 0 && $j==3){ $j=0;?>
+				<div class="item">
+			<?php }?>		
+			<?php
+	    		$clear = 'clr1';
+	    		if ($i % 2 == 0) $clear .= ' clr2';
+	    		if ($i % 3 == 0) $clear .= ' clr3';
+	    		if ($i % 4 == 0) $clear .= ' clr4';
+	    		if ($i % 5 == 0) $clear .= ' clr5';
+	    		if ($i % 6 == 0) $clear .= ' clr6';
+	    	?>
+	    	<!--<div class="<?php echo $clear; ?>"></div>-->
+			<?php } ?>
+			<?php if(count($list)%3 !=0){?>
+				</div>
+			<?php }?>	
+			</div>
+		</div>
+	</div>
+</div>	
+	<?php if(!empty($options->posttext)){?>
+	<div class="acd-posttext">
+		<?php echo $options->posttext; ?>
+	</div>
+	<?php }?>
+<?php }else{
+	echo $this->__('Has no content to show!');
+}?>

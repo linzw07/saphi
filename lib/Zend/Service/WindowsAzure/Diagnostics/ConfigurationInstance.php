@@ -15,10 +15,15 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
+
+/**
+ * @see Zend_Service_WindowsAzure_Diagnostics_Exception
+ */
+#require_once 'Zend/Service/WindowsAzure/Diagnostics/Exception.php';
 
 /**
  * @see Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
@@ -34,7 +39,7 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Diagnostics
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * @property Zend_Service_WindowsAzure_Diagnostics_ConfigurationDataSources	DataSources	Data sources
@@ -111,10 +116,9 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		// Assign Directories settings
 		$this->DataSources->Directories->BufferQuotaInMB = (int)$configurationXml->DataSources->Directories->BufferQuotaInMB;
 		$this->DataSources->Directories->ScheduledTransferPeriodInMinutes = (int)$configurationXml->DataSources->Directories->ScheduledTransferPeriodInMinutes;
-
 		if ($configurationXml->DataSources->Directories->Subscriptions
 			&& $configurationXml->DataSources->Directories->Subscriptions->DirectoryConfiguration) {
-			$subscriptions = $configurationXml->DataSources->Directories->Subscriptions;
+			$subscriptions = $configurationXml->DataSources->WindowsEventLog->Subscriptions;
 			if (count($subscriptions->DirectoryConfiguration) > 1) {
 				$subscriptions = $subscriptions->DirectoryConfiguration;
 			} else {
@@ -208,7 +212,6 @@ class Zend_Service_WindowsAzure_Diagnostics_ConfigurationInstance
 		$returnValue[] = '    </Directories>';
 		
 		$returnValue[] = '  </DataSources>';
-		$returnValue[] = '  <IsDefault>false</IsDefault>';
 		$returnValue[] = '</ConfigRequest>';
 		
 		// Return

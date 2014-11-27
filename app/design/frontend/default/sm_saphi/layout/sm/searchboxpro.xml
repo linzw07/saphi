@@ -1,0 +1,20 @@
+<?xml version="1.0"?>   
+<layout version="1.0">
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>sm/searchboxpro/css/searchboxpro.css</stylesheet></action>
+        </reference>
+		<reference name="searchbox">
+			<block type="searchboxpro/list" name="searchboxpro" template="sm/searchboxpro/default.phtml" />
+        </reference>
+    </default>
+	<searchboxpro_index_index>
+		<!--reference name="content">
+			<block type="catalogsearch/term" name="catalogsearch.term" template="catalogsearch/term.phtml"/> 
+			<block type="searchboxpro/list" name="searchboxpro1" template="sm/searchboxpro/default.phtml" />
+        </reference-->
+	</searchboxpro_index_index>	
+</layout>   
+
+	
+	

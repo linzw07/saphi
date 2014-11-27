@@ -1,0 +1,301 @@
+<?php global $var_yttheme;  
+// Include cpanel
+if( $var_yttheme->getParam('showCpanel') ) {
+?>
+<div id="cpanel_wrapper" style="direction:ltr">
+	<div class="cpanel-head">Template Settings</div>
+    <div class="cpanel-theme-color">
+    	<span class="theme-color-heading">Select color sample for all params</span>
+        <div class="inner clearfix">     
+            <div title="Default Color" data-sitestyle="default" class="theme-color default<?php echo ($var_yttheme->getParam('sitestyle')=='default')?' active':'';?>">
+                <div class="defaultcolor">default</div>
+            </div>   
+            <div title="Blue" data-sitestyle="blue" class="theme-color blue<?php echo ($var_yttheme->getParam('sitestyle')=='blue')?' active':'';?>">
+                <div class="blue">blue</div>
+            </div>
+            <div title="Brown" data-sitestyle="brown" class="theme-color brown<?php echo ($var_yttheme->getParam('sitestyle')=='brown')?' active':'';?>">
+                <div class="brown">brown</div>
+            </div>
+            <div title="Cyan" data-sitestyle="cyan" class="theme-color cyan<?php echo ($var_yttheme->getParam('sitestyle')=='cyan')?' active':'';?>">
+                <div class="cyan">cyan</div>
+            </div>
+            <div title="Red" data-sitestyle="red" class="theme-color red<?php echo ($var_yttheme->getParam('sitestyle')=='red')?' active':'';?>">
+                <div class="red">Red</div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion" id="ytcpanel_accordion">
+    	<!--Body-->
+        <div class="accordion-group cpnel-body">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-parent="#ytcpanel_accordion" href="#ytitem_1">
+                Body
+                </a>
+            </div>
+            <div id="ytitem_1" class="accordion-body">
+                <div class="accordion-inner clearfix">
+                    <!-- Body Background color -->
+                    <div class="cp-item body-background-color">
+                        <span>Background color</span>
+                        <div class="inner">
+                        	<input type="text" value="<?php echo $var_yttheme->getParam('bgcolor');?>" autocomplete="off" size="7" class="color-picker miniColors" name="ytcpanel_bgcolor" maxlength="7"/>
+                        </div>
+                    </div>
+                    <!-- Link color
+                    <div class="cp-item link-color">
+                        <span>Link color</span>
+                        <div class="inner">
+                        	<input type="text" value="<?php echo $var_yttheme->getParam('linkcolor');?>" autocomplete="off" size="7" class="color-picker miniColors" name="ytcpanel_linkcolor" maxlength="7"/>
+                        </div>
+                    </div>-->
+                    <!-- Text color-->
+                    <div class="cp-item text-color">
+                        <span>Text color</span>
+                        <div class="inner">
+                        	<input type="text" value="<?php echo $var_yttheme->getParam('textcolor'); ?>" autocomplete="off" size="7" class="color-picker miniColors" name="ytcpanel_textcolor" maxlength="7"/>
+                        </div>
+                    </div>					
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="accordion-group cpanel-menu">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-parent="#ytcpanel_accordion" href="#ytitem_6">
+                Menu style
+                </a>
+            </div>
+            <div id="ytitem_6" class="accordion-body">
+                <div class="accordion-inner clearfix">
+                	<!-- Styles -->
+                    <div class="cp-item footer-background-color">
+                        <span>Styles</span>
+                        <div class="inner">
+                        	<select onchange="javascript: onCPApply();" name="ytcpanel_menustyle" class="cp_select">
+                                <option value="mega"<?php echo ($var_yttheme->getParam('menustyle')=='mega')?' selected="selected"':'';?>>Mega</option>
+                                <option value="css"<?php echo ($var_yttheme->getParam('menustyle')=='css')?' selected="selected"':'';?>>Css</option>
+                                <option value="split"<?php echo ($var_yttheme->getParam('menustyle')=='split')?' selected="selected"':'';?>>Split</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Typography -->
+        <div class="accordion-group cpanel-typography">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-parent="#ytcpanel_accordion" href="#ytitem_4">
+                Typography
+                </a>
+            </div>
+            <div id="ytitem_4" class="accordion-typo">
+                <div class="accordion-inner clearfix">
+                    <!-- Body font-size -->
+                    <div class="cp-item">
+                        <span>Body font-size</span>
+                        <div class="inner">
+                            <?php 
+							$fontfamily = array(
+										 '10px'=>'10px',
+										 '11px'=>'11px',
+										 '12px'=>'12px',
+										 '13px'=>'13px',
+										 '14px'=>'14px',
+										 '15px'=>'15px',
+										 '16px'=>'16px',
+										 '17px'=>'17px',
+										 '18px'=>'18px'
+							);
+							?>
+                            <select onchange="javascript: onCPApply();" name="ytcpanel_fontsize" class="cp_select">
+							<?php foreach($fontfamily as $k=>$v):?>
+                                <option value="<?php echo $v; ?>"<?php echo ($var_yttheme->getParam('fontsize')==$v)?' selected="selected"':'';?>><?php echo $k; ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Body font-family -->
+                    <div class="cp-item body-fontfamily">
+                        <span>Body font-family</span>
+                        <div class="inner">
+                        <?php 
+						$fontfamily = array(
+                                     'Arial'=>'arial',
+									 'Segoe UI'=>'segoe ui',					 
+									 'Arial Black'=>'arial-black',
+									 'Courier New'=>'courier',
+									 'Georgia'=>'georgia',
+									 'Impact'=>'impact',
+									 'Lucida Console'=>'lucida-console',
+									 'Lucida Grande'=>'lucida-grande',
+									 'Palatino'=>'palatino',
+									 'Tahoma'=>'tahoma',
+									 'Times New Roman'=>'times',
+									 'Trebuchet'=>'trebuchet',
+									 'Verdana'=>'verdana'
+						);
+						?>
+                            <select onchange="javascript: onCPApply();" name="ytcpanel_font_name" class="cp_select">
+							<?php foreach($fontfamily as $k=>$v):?>
+                                <option value="<?php echo $v; ?>"<?php echo ($var_yttheme->getParam('font_name')==$v)?' selected="selected"':'';?>><?php echo $k; ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+    <!-- Action button -->
+    <div class="action">
+    	<!--<input id="yt_button_cpanel" class="btn btn-info" type="button" onclick="javascript: onCPApply();" value="Apply" class="button" />-->
+    	<a  class="btn btn-info reset" href="#" onclick="javascript: onCPResetDefault(TMPL_COOKIE);">Reset</a>
+    </div>
+    <div id="cpanel_btn" class="normal">
+        <i class="icon-hand-right"></i>
+    </div>
+</div>
+
+	<script type="text/javascript">
+	// <![CDATA[
+
+    $jsmart(document).ready(function($){
+        /* Begin: Enabling miniColors */
+		$('.body-background-color .color-picker').miniColors({			
+			change: function(hex, rgb) {
+				$('body#bd').css('background-color', hex); 
+				createCookie(TMPL_NAME+'_'+($(this).attr('name').match(/^ytcpanel_(.*)$/))[1], hex, 365);
+			}
+		});
+		$('.link-color .color-picker').miniColors({
+			change: function(hex, rgb) {
+				$('#yt_header .header-nav ul li a,.sm-serachbox-pro .sm-searchbox-keyword-list > li a,.sm_megamenu_wrapper_vertical_menu .sm_megamenu_menu li a.sm_megamenu_head,.yt-left-wrap .block-tags ul.tags-list li a,#yt_spotlight a').css('color', hex);
+				createCookie(TMPL_NAME+'_'+($(this).attr('name').match(/^ytcpanel_(.*)$/))[1], hex, 365);
+			}
+		});
+		$('.text-color .color-picker').miniColors({
+			change: function(hex, rgb) {
+				$('body').css('color', hex);
+				createCookie(TMPL_NAME+'_'+($(this).attr('name').match(/^ytcpanel_(.*)$/))[1], hex, 365);
+			}
+		});
+		/*
+		/* End: Enabling miniColors */
+		/* Begin: Set click pattern */
+		function patternClick(el, paramCookie, assign){
+			$(el).click(function(){
+				oldvalue = $(this).parent().find('.active').html();
+				$(el).removeClass('active');
+				$(this).addClass('active');
+				value = $(this).html();
+				if(assign.length > 0){
+					for($i=0; $i < assign.length; $i++){
+						$(assign[$i]).removeClass(oldvalue);
+						$(assign[$i]).addClass(value);
+					}
+				}
+				if(paramCookie){
+					$('input[name$="ytcpanel_'+paramCookie+'"]').attr('value', value);
+					createCookie(TMPL_NAME+'_'+paramCookie, value, 365);
+				}
+			});
+
+		}
+        patternClick('.body-background-image .pattern',   'body-bgimage',   Array('#bd', ''));
+        /* End: Set click pattern */
+		function templateSetting(array){
+			if(array['0']){
+				$('.body-background-color input.miniColors').attr('value', array['0']);
+				$('.body-background-color a.miniColors-trigger').css('background-color', array['0']);
+				$('input.ytcpanel_bgcolor').attr('value', array['0']);
+			}
+			if(array['1']){
+				$('.link-color input.miniColors').attr('value', array['1']);
+				$('.link-color a.miniColors-trigger').css('background-color', array['1']);
+				$('input.ytcpanel_linkcolor').attr('value', array['1']);
+			}
+			if(array['2']){
+				$('.text-color input.miniColors').attr('value', array['2']);
+				$('.text-color a.miniColors-trigger').css('background-color', array['2']);
+				$('input.ytcpanel_textcolor').attr('value', array['2']);
+			}
+		}
+		var array 					= Array('bgcolor'	    ,	'textcolor');
+		var array_default           = Array('#fff'       ,   '#909090');
+        var array_blue 		        = Array('#fff'	 	,	'#909090');
+		var array_brown       		= Array('#fff'	 	,	'#909090');
+		var array_cyan         		= Array('#fff'	 	,	'#909090');
+		var array_red        	 	= Array('#fff'	 	,	'#909090');
+
+        $('.theme-color.default').click(function(){
+            $($(this).parent().find('.active')).removeClass('active'); $(this).addClass('active');
+            createCookie(TMPL_NAME+'_'+'sitestyle', $(this).attr('data-sitestyle').toLowerCase(), 365);
+            templateSetting(array_default);
+            onCPApply();
+        });
+		$('.theme-color.blue').click(function(){ 
+			$($(this).parent().find('.active')).removeClass('active'); $(this).addClass('active');
+			createCookie(TMPL_NAME+'_'+'sitestyle', $(this).attr('data-sitestyle').toLowerCase(), 365);
+			templateSetting(array_blue);
+			onCPApply();
+		});
+		$('.theme-color.brown').click(function(){
+			$($(this).parent().find('.active')).removeClass('active'); $(this).addClass('active');
+			createCookie(TMPL_NAME+'_'+'sitestyle', $(this).attr('data-sitestyle').toLowerCase(), 365);
+			templateSetting(array_brown);
+			onCPApply();
+		});
+		$('.theme-color.cyan').click(function(){
+			$($(this).parent().find('.active')).removeClass('active'); $(this).addClass('active');
+			createCookie(TMPL_NAME+'_'+'sitestyle', $(this).attr('data-sitestyle').toLowerCase(), 365);
+			templateSetting(array_cyan);
+			onCPApply();
+		});
+		$('.theme-color.red').click(function(){
+			$($(this).parent().find('.active')).removeClass('active'); $(this).addClass('active');
+			createCookie(TMPL_NAME+'_'+'sitestyle', $(this).attr('data-sitestyle').toLowerCase(), 365);
+			templateSetting(array_red);
+			onCPApply();
+		});
+    });
+	// ]]>
+    </script>
+<?php
+}
+?>
+
+<?php
+if(!defined('ACCORDION_SNYDERPLACE')){
+    define('ACCORDION_SNYDERPLACE', 1);
+?>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.cookie.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.accordion_snyderplace.js') ?>"></script>
+<?php
+}
+?>
+
+<script type="text/javascript">
+    $jsmart(document).ready(function($) {
+        //syntax highlighter
+        //accordion
+        $('.accordion-heading').accordion_snyderplace({
+            defaultOpen: 'yt_cpanelaccordionfirst',
+            cookieName: 'cpanel_accordion',
+            speed: 'fast',
+            animateOpen: function (elem, opts) { //replace the standard slideUp with custom function
+                elem.next().slideFadeToggle(opts.speed);
+            },
+            animateClose: function (elem, opts) { //replace the standard slideDown with custom function
+                elem.next().slideFadeToggle(opts.speed);
+            }
+        });
+        //custom animation for open/close
+        $.fn.slideFadeToggle = function(speed, easing, callback) {
+            return this.animate({opacity: 'toggle', height: 'toggle'}, speed, easing, callback);
+        };
+    });
+</script>

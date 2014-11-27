@@ -1,0 +1,17 @@
+<?xml version="1.1"?>   
+<layout version="1.1">
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>sm/extraslider/css/extraslider.css</stylesheet></action>
+        	<action method="addCss"><stylesheet>sm/extraslider/css/extraslider-css3.css</stylesheet></action>
+        </reference>	
+    </default>
+	<extraslider_index_index>	
+        <reference name="content">
+            <block type="extraslider/list" name="extraslider.list.default">
+                 <action method="setConfig">
+                </action>
+            </block>
+        </reference>
+	</extraslider_index_index>	
+</layout>   

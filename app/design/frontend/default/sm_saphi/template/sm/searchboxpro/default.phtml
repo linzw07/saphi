@@ -1,0 +1,84 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Search Box Pro - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+echo $this->getScriptTags();
+$tag_id = 'sm_serachbox_pro'.rand().time();
+$cat_list = $this->getCategories();
+$options = $this->getConfigObject();?>
+<?php if( $options->isenabled == 1 ){?>
+	<div id="<?php echo $tag_id;?>" class="sm-serachbox-pro">
+	<?php if( $options->pretext != ""){ ?>
+	<div class="serachbox-pro-pretext">
+		<?php echo $options->pretext;?>
+	</div>
+	<?php }?>
+		
+		<?php if( $options->show_advanced == 1 ){?>
+			<div class="sm-searchbox-advanced">
+				<a href="<?php echo $this->getBaseUrl()?>catalogsearch/advanced/"><?php echo $this->__('Advanced +')?></a>
+			</div>
+		<?php }?>
+		<div class="clr"></div>
+ 		<div class="sm-searbox-content">
+		<div class="block-links-social">
+			<ul>
+				<li title="Facebook" ><a class="icon-facebook" href="https://www.facebook.com/magentech" target="_blank"></a></li>
+				<li title="Twitter" ><a class="icon-twitter" href="https://twitter.com/magentech" target="_blank"></a></li>
+				<li title="Google Plus" ><a class="icon-google-plus" href="https://plus.google.com/111936609376399911024/posts" target="_blank"></a></li>
+				<li title="Linked In" ><a class="icon-linkedin" href="https://vn.linkedin.com/in/magentech/" target="_blank"></a></li>
+			</ul>			
+		</div>
+			<form id="search_mini_form" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
+				<div class="form-search">
+					<?php $categorySearchHelper = $this->helper('searchboxpro'); ?>
+					<div class="search-inner">						
+						<input size="30" id="search" type="text" name="<?php echo $this->helper('catalogSearch')->getQueryParamName() ?>" class="input-text" onfocus="if(this.value=='Enter your keyword...') this.value='';" onblur="if(this.value=='') this.value='Enter your keyword...';" value="Enter your keyword..."  />
+					</div>
+					<button type="submit" title="<?php echo $this->__('Search') ?>" class="button form-button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+					<div id="search_autocomplete" class="search-autocomplete"></div>
+				</div>
+			</form>
+		</div>
+		<?php if($options->posttext!= ''){ ?>
+			<div class="serachbox-pro-posttext">
+				<?php echo $options->posttext;?>
+			</div>
+		<?php }?>
+	</div>
+<?php }?>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		$('.sm-searchbox-more').click(function(){
+			$('a.sm-searchbox-more').attr('data_count') == 10; 
+			var sb_ajaxurl = $('a.sm-searchbox-more').attr('data_sb_ajaxurl');
+			var firt_load = <?php echo $options->limit_popular;?>;
+			var count = $('a.sm-searchbox-more').attr('data_count'); 
+			count = parseInt(count);
+			if( firt_load >= count ){
+				count = count + parseInt(firt_load);
+			}
+			$.ajax({
+				type: 'POST',
+				url: sb_ajaxurl,
+				data:{
+					is_ajax: 1,
+					count_term: count
+				},
+				success: function(data){
+					$('.sm-serachbox-pro').html(data.htm);				
+					$('a.sm-searchbox-more').attr({
+					'data_count': count + parseInt(firt_load)
+					}); 					
+				}, 
+				dataType:'json'
+			});
+		});
+	});
+</script>

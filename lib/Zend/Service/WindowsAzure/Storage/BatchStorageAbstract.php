@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BatchStorageAbstract.php 24593 2012-01-05 20:35:02Z matthew $
+ * @version    $Id: BatchStorageAbstract.php 23167 2010-10-19 17:53:31Z mabe $
  */
 
 /**
@@ -26,10 +26,35 @@
 #require_once 'Zend/Service/WindowsAzure/Storage.php';
 
 /**
+ * @see Zend_Service_WindowsAzure_Credentials_CredentialsAbstract
+ */
+#require_once 'Zend/Service/WindowsAzure/Credentials/CredentialsAbstract.php';
+
+/**
+ * @see Zend_Service_WindowsAzure_Exception
+ */
+#require_once 'Zend/Service/WindowsAzure/Exception.php';
+
+/**
+ * @see Zend_Service_WindowsAzure_Storage_Batch
+ */
+#require_once 'Zend/Service/WindowsAzure/Storage/Batch.php';
+
+/**
+ * @see Zend_Http_Client
+ */
+#require_once 'Zend/Http/Client.php';
+
+/**
+ * @see Zend_Http_Response
+ */
+#require_once 'Zend/Http/Response.php';
+
+/**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
@@ -50,8 +75,7 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
      */
     public function setCurrentBatch(Zend_Service_WindowsAzure_Storage_Batch $batch = null)
     {
-        if (!is_null($batch) && $this->isInBatch()) {
-			#require_once 'Zend/Service/WindowsAzure/Exception.php';
+        if ($batch !== null && $this->isInBatch()) {
             throw new Zend_Service_WindowsAzure_Exception('Only one batch can be active at a time.');
         }
         $this->_currentBatch = $batch;
@@ -74,7 +98,7 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
      */
     public function isInBatch()
     {
-        return !is_null($this->_currentBatch);
+        return $this->_currentBatch !== null;
     }
     
     /**
@@ -85,7 +109,6 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
      */
     public function startBatch()
     {
-		#require_once 'Zend/Service/WindowsAzure/Storage/Batch.php';
         return new Zend_Service_WindowsAzure_Storage_Batch($this, $this->getBaseUrl());
     }
 	

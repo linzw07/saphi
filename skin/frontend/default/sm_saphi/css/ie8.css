@@ -1,0 +1,150 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+.data-table th.a-center{	padding:8px 48px;}
+.data-table th {	padding:8px 96px 8px 0;}
+.data-table th.a-right {	padding:8px 0 8px 96px;}
+
+
+.container,
+.navbar-static-top .container,
+.navbar-fixed-top .container,
+.navbar-fixed-bottom .container {
+	width: 1170px;
+}
+
+
+.sm-serachbox-pro .sm-searbox-content .form-search .categories-drop > select{
+	padding-left:5px;
+	padding-bottom:15px;
+	}
+.sm-serachbox-pro .sm-searbox-content .form-search > input{ 
+	line-height:50px;
+}
+.yt-product-detail .jCarouselLite > ul > li{
+	margin-right:11px;}
+	.w-p-n{ right: -85px}
+.yt-product-detail .add-to-holder.have-price .wrap-qty .qty-set input.quantity-input, 
+.yt-product-detail .product-info-box .box-main .wrap-qty .qty-set input.quantity-input{
+	line-height: 48px;
+}
+
+.yt-left-wrap .block-newsletter .block-content-info .input-box input#newsletter{line-height:32px;}
+.yt-left-wrap .block-newsletter .block-content-info .input-box .actions .button > span{ top:-14px;}
+
+#yt_wrapper #yt_footerwrap .payment{float:right; width:315px; display:inline-block;}
+.yt-product-detail .add-to-holder.have-price .add-to-cart .btn-cart:hover .icon-cart-text{ top:2px;}
+
+.currency-select-inner div.selector select{ width:150px;}
+.language-switcher div.selector select{ width:100px;}
+
+#product-options-wrapper .selector select{ width:240px;}
+.slideshow .sl-item .sl-item-image img{ max-width:none;}
+.w-aboutus .h-img{
+	background: none;
+	display: none;
+}
+.w-aboutus .acd-image:hover .h-img{
+	display: block;
+}
+.sm-serachbox-pro .sm-searbox-content .form-search .search-inner > input{
+	padding-top: 4px; padding-bottom: 0;
+}
+#uniform-cat select{ 
+	opacity: 0; filter: alpha(opacity=0);
+	text-align: left;
+}
+.pagination-wrap{ width: 47.7179% !important;}
+
+.sm_megamenu_wrapper_horizontal_menu .w-new .block-newproduct .item-box .actions,
+.sm_megamenu_wrapper_horizontal_menu .w-topcontent .actions
+{
+	opacity: 0; filter: alpha(opacity=0);
+	display: none;
+}
+.sm_megamenu_wrapper_horizontal_menu .w-topcontent .item-img-info:hover .actions,
+.sm_megamenu_wrapper_horizontal_menu .w-new .block-newproduct ul.products li div.product-image:hover .actions{ 
+	opacity: 1; filter: alpha(opacity=1);
+	display: inline-block;
+}
+.mini-cartpro .block-content .bottom-action .button:hover:before,
+.mini-cartpro .block-content .bottom-action .button:hover:after
+{ display: none;}
+
+.login-quick .block-content p input{
+	height: 28px;
+}
+.row-fluid [class*='span']{ min-height: 0;}
+#chk_remember{ 
+	margin: 0 !important;
+	opacity: 0; filter: alpha(opacity=0);
+}
+#qty{ line-height: 30px; display: inline-block;}
+
+#co-payment-form input.radio{ margin-top: -1px !important;}
+.language-switcher div.selector select option:hover,
+.language-switcher div.selector select option:focus,
+.language-switcher div.selector select option:visited{
+	outline:none !important;
+}
+.login-quick input.input-text{
+	padding: 6px 3px 6px 5px !important;
+}
+#yt_wrapper .category-products .limiter .select-new .select-limit-show,
+ #yt_wrapper .category-products .sort-by .select-new .select-sort-by
+{
+	padding-bottom: 0;
+}
+
+#confirmbox #product-options-wrapper ul.options-list li input{ float: left; }
+.product-options ul.options-list .label{ float: left; }
+#confirmbox{ padding-right: 0; width: 330px;}
+.w-group-btn .quantity-input.qty{ height: 30px; line-height: 30px; padding: 0 5px 0 0; text-align: center;}
+.yt-tab-listing .respl-items-container .respl-items .respl-item .item-inner .item-image a.sm_quickview_handler{
+	opacity: 0;filter: alpha(opacity=0);
+}
+.yt-tab-listing .respl-items-container .respl-items .respl-item .item-inner .item-image:hover a.sm_quickview_handler{
+	opacity: 1;filter: alpha(opacity=100);
+}
+.yt-tab-listing .respl-items-container .respl-items .respl-item .item-inner .item-image a.a-hover img{
+	opacity: 0.5;filter: alpha(opacity=50);
+}
+.sm-basenews-home .postWrapper .blog-img a img{ 
+	max-width: none;
+}
+.header-top .quick-info li a{
+	padding-left: 32px;
+}
+.header-top .quick-info li a.iconlogin{
+	left: -15px;
+}
+
+.header-top .login-quick{
+	left: -4px;
+}
+
+
+
+
+
+
+

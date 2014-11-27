@@ -1,0 +1,238 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    global $var_yttheme;
+?>
+
+<?php
+if ($_product->getImage() != 'no_selection' && $_product->getImage()){
+	$now = date("Y-m-d");
+	$newsFrom= substr($_product->getData('news_from_date'),0,10);
+	$newsTo=  substr($_product->getData('news_to_date'),0,10);
+	$specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice();
+?>
+<div class="ytc_background_theme1">
+	<div class="product-image-zoom">
+	<?php 
+	//print_r($_product->getResource()->getAttribute('best')->getFrontend()->getValue($_product));?>
+		<?php
+		$_img = '<img id="image" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(370, 370).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+		?>
+		<a id="yt_cloudzoom" class="cloud-zoom" rel="zoomWidth:280, zoomHeight:280, adjustX: 20, adjustY: -3" title="<?php echo $this->htmlEscape($this->getImageLabel()); ?>" href="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" >
+			<?php
+			echo $_helper->productAttribute($_product, $_img, 'image');
+			if ($now>=$newsFrom && $now<=$newsTo){
+				//echo "<span class='newproduct-view'>new</span>";
+			}
+			if ($specialprice){
+				//echo "<span class='saleoff-view'>sale off</span>";
+			}
+			
+			?>
+			<span class="inner-border" style="<?php /* border:20px solid #000; */ ?>"></span>
+		</a>
+
+		<div class="popup-btn hidden-phone">
+			<a id="yt_popup" rel="yt-colorbox" href="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" >Click here to view full above picture</a>
+		</div>
+		
+	</div>
+	<a href="#" class="show-phone">
+		<?php
+		echo $_helper->productAttribute($_product, $_img, 'image');
+		if ($now>=$newsFrom && $now<=$newsTo){
+			echo "<div class='new-item'></div>";
+		}
+		if ($specialprice){
+			echo "<div class='sale-item'></div>";
+		}
+		
+		?>
+	</a>
+</div>
+<!--<p class="a-center" id="track_hint"><?php //echo $this->__('Click on above image to view full picture') ?></p>-->
+<?php }else{
+    $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(370, 245).'" alt="'.$this->htmlEscape($_product->getImageLabel()).'" />';
+?>
+	<a href="#" class="">
+		<?php
+		echo $_helper->productAttribute($_product, $_img, 'image');
+		if ($now>=$newsFrom && $now<=$newsTo){
+			echo "<div class='new-item'></div>";
+		}
+		if ($specialprice){
+			echo "<div class='sale-item'></div>";
+		}
+		
+		?>
+	</a>
+<?php } ?>
+<?php
+
+if (count($this->getGalleryImages()) > 0){
+	if( count($this->getGalleryImages()) >= 3 ){	?>
+		<div class="more-views slide-gallery">
+			<div class="jCarouselLite">
+				<ul>
+				<?php
+				foreach ($this->getGalleryImages() as $_image): ?>
+					<?php if($_image->getFile()==$_product->getImage()){	?>
+						<li style="width:83px; height:83px;">
+							<a onclick="$$('.cloud-zoom-gallery').each(function(e,i){	e.removeClassName('actived');});this.addClassName('actived')" class="cloud-zoom-gallery actived" rel="useZoom: 'yt_cloudzoom', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(370, 370); ?>'"
+							href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+								<img  src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(83, 83); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+								<?php /* <span class="inner-border" style="border:3px solid #000; "></span>*/ ?>
+								<span class="inner-border bgcolor4 bgopacity"></span>
+							</a>
+						</li>
+					<?php } ?>
+				<?php endforeach; ?>
+
+
+				<?php
+				foreach ($this->getGalleryImages() as $_image): ?>
+					<?php if($_image->getFile()!=$_product->getImage()){	?>
+						<li style="width:83px; height:83px;">
+							<a onclick="$$('.cloud-zoom-gallery').each(function(e,i){	e.removeClassName('actived');});this.addClassName('actived')" class="cloud-zoom-gallery" rel="useZoom: 'yt_cloudzoom', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(370, 370); ?>'"
+							href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+								<img  src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(83, 83); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+								<?php /* <span class="inner-border" style="border:3px solid #000;"></span> */ ?>
+								<span class="inner-border bgcolor4 bgopacity"></span>
+							</a>
+						</li>
+					<?php } ?>
+				<?php endforeach; ?>
+				</ul>
+
+			</div>
+			<div class="w-p-n">	           
+				<span class="next"><i></i></span>
+				 <span class="prev"><i></i></span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function init(){
+				device = $jsmart.fn.detectDevice(); 
+				number_visible = 3 ;
+				if(device =="mobile"){
+					number_visible = 2 ;
+				}
+			
+				$jsmart(".jCarouselLite").jCarouselLite({
+					btnNext: ".more-views .next",
+					btnPrev: ".more-views .prev",
+					visible: number_visible,
+					start: 0,
+					circular:false
+				}); 				
+			}
+			init();  
+		</script>
+
+	<?php
+	}else{
+	?>
+		<div class="more-views limit-img">			
+			<ul>
+					<?php
+				foreach ($this->getGalleryImages() as $_image): ?>
+					<?php if($_image->getFile()==$_product->getImage()){	?>
+						<li style="width:83px; height:83px;">
+							<a onclick="$$('.cloud-zoom-gallery').each(function(e,i){	e.removeClassName('actived');});this.addClassName('actived')" class="cloud-zoom-gallery actived" rel="useZoom: 'yt_cloudzoom', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(370, 370); ?>'"
+							href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+								<img  src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(83, 83); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+								<?php /* <span class="inner-border" style="border:3px solid #000; "></span>*/ ?>
+								<span class="inner-border bgcolor4 bgopacity"></span>
+							</a>
+						</li>
+					<?php } ?>
+				<?php endforeach; ?>
+
+
+				<?php
+				foreach ($this->getGalleryImages() as $_image): ?>
+					<?php if($_image->getFile()!=$_product->getImage()){	?>
+						<li style="width:83px; height:83px;">
+							<a onclick="$$('.cloud-zoom-gallery').each(function(e,i){	e.removeClassName('actived');});this.addClassName('actived')" class="cloud-zoom-gallery" rel="useZoom: 'yt_cloudzoom', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(370, 370); ?>'"
+							href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>">
+								<img  src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(83, 83); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" />
+								<?php /* <span class="inner-border" style="border:3px solid #000;"></span> */ ?>
+								<span class="inner-border bgcolor4 bgopacity"></span>
+							</a>
+						</li>
+					<?php } ?>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+
+	<?php
+	}
+}
+?>
+<script type="text/javascript">
+	$jsmart(document).ready(function($){
+		$('.jCarouselLite ul li a').each(function(){
+			if($(this).hasClass('actived')){
+				$(this).parent().addClass('selected');	
+			}				
+		});
+					
+		$('.jCarouselLite ul li a').click(function(){
+			$this = $(this);
+			$('.jCarouselLite ul li a').parent().removeClass('selected');
+			if($this.hasClass('actived')){				
+				$this.parent().addClass('selected');
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+		$jsmart(document).ready(function($){
+			function init(){
+				$('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();					
+				//Examples of how to assign the ColorBox event to elements
+				//$(".popup-btn a[rel='yt-colorbox']").colorbox({});
+				$("a[rel=yt-colorbox]").fancybox({padding : 8});
+
+				$('a.cloud-zoom-gallery').bind('click', function(){
+					$('a#yt_popup').attr('href', $(this).attr('href'));
+				});
+			}
+			e = $(".ytc_background_theme1"),ehtml=e.html(),id='',init();$(window).resize(function(){if (id) clearTimeout(id);id = setTimeout(function(){e.children().empty().remove();e.html(ehtml);init();}, 300);
+			})
+		});
+</script>
+

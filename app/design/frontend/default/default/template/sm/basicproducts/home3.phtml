@@ -1,0 +1,104 @@
+<?php
+    $_productCollection = $this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+    $imgWidth = $this->product_image_width;
+    $imgHeight = $this->product_image_height;
+    if ($imgWidth <= 0 || $imgHeight <= 0){
+    	$this->product_image_disp = false;
+    }
+	$descLength = $this->product_description_max_length;
+?>
+
+<div class="category-products">
+	<?php if ($this->title){ ?>
+	<div class="block-title"><strong><?php echo $this->title ?></strong></div>
+	<?php } ?>
+    <div class="yt-products-container">
+    <?php 
+	if(!$_productCollection->count()){ ?>
+        <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+    <?php  }else{
+		$row = 0;
+        $col= 0;
+        $count = 1;
+		$i=0; 
+		$_collectionSize = $_productCollection->count();
+		$j = 0;
+		foreach($_productCollection as $_product){ $j++;
+			$now = date("Y-m-d");
+			$newsFrom= substr($_product->getData('news_from_date'),0,10);
+			$newsTo=  substr($_product->getData('news_to_date'),0,10);
+			$specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice(); 
+			$isBestProduct =($_product->getResource()->getAttribute('best')->getFrontend()->getValue($_product)=="Yes")?$_product->getResource()->getAttribute('best')->getFrontend()->getValue($_product):'';                				
+            if ($i++==0){ ?>
+				<div class="products-grid">
+					<?php } ?>
+						<div class="product-wrap-menu <?php if($j == 3 ){ echo "last";}?>">
+								<div class="product-inner">
+									<div class="item-box">
+										<div class="product-image">
+											<a class="product-image-inner" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" ><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgWidth,$imgHeight); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+										</div>
+										<div class="item-box-hover">										
+											<div class="actions">
+												<ul class="add-to-links">
+													<?php if ($this->helper('wishlist')->isAllow()) : ?>
+														<li class="wishlist-slider">
+															<span class="icon-heart"></span>
+															<a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist">
+																<?php echo $this->__('Add to Wishlist') ?>
+															</a>
+														</li>
+													<?php endif; ?>
+													<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+														<li class="compare-slider">
+															<div class="compare-slider-content">
+																<span class="icon-exchange"></span>
+																<a href="<?php echo $_compareUrl ?>" class="link-compare">
+																	<?php echo $this->__('Add to Compare') ?>
+																</a>
+															</div>
+															<div class="bg-hover"></div>
+														</li>
+													<?php endif; ?>
+												</ul>
+											</div>																				
+										</div>											
+										<div class="bg-hover"></div>
+									</div>
+									<div class="item-box-footer">
+										<div class="product-name">
+											<a class="fontcolor" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+											<?php 
+											if(strlen($_helper->productAttribute($_product, $_product->getName(), 'name')) > 20){
+												echo substr($_helper->productAttribute($_product, $_product->getName(), 'name'), 0, 20) .'';
+											}else{
+												echo $_helper->productAttribute($_product, $_product->getName(), 'name');
+											}
+											?>
+											</a>
+										</div>									
+										<div class="price-wrapper">	
+											<?php echo $this->getPriceHtml($_product, true) ?>
+										</div>	
+										<div class="product-addcart">										
+											<?php if($_product->isSaleable()): ?>
+												<a title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" class="btn-cart bgcolor fontcolor" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
+													<span class="icon-shopping-cart"></span>
+													<span class="addcart-text">
+														<?php echo $this->__('Add to Cart') ?>
+													</span>
+												</a>
+											<?php else: ?>
+												<span class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></span>
+											<?php endif; ?>	
+										</div>										
+									</div>
+								</div>
+						</div>
+					<?php if ($i==$_collectionSize){ ?>
+					
+				</div>
+		<?php } }}	?>
+	</div>
+</div>

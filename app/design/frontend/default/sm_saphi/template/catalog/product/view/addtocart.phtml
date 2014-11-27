@@ -1,0 +1,76 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_product = $this->getProduct(); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product); ?>
+<?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">	
+    	 
+       <div class="group-btn">
+			<a href="javascript:void(0);" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)">
+				<span class="icon-cart"></span>
+				<span class="icon-cart-text"><?php echo $this->__('Add To Cart') ?></span>
+			</a>				   		
+        <?php //echo $this->getChildHtml('', true, true) ?>
+            
+             <?php
+        $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+    ?>    
+    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+     	
+            <a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist btn-wishlist">
+            <span class="icon-wishlist"></span>
+            <span class="icon-wishlist-text"><?php echo $this->__('Add To Wishlist') ?></span>        
+            </a>
+      
+    <?php endif; ?>
+    <?php if($_compareUrl) : ?>
+                   
+            <a href="<?php echo $_compareUrl ?>" class="btn-compare">
+               <span class="icon-compare"></span>
+                <span class="compare-text"><?php echo $this->__('Add To Compare') ?></span>
+            </a>
+      
+    <?php endif; ?>   
+        <?php if(!$_product->isGrouped()){?>
+            <div class="wrap-qty">
+                <!--<div class="qty-title"><span><?php //echo $this->__('Qty') ?>:</span></div>-->
+                <div class="qty-set">
+                    <span class="quantity-box">
+                        <input type="text" class="quantity-input qty" id="qty<?php echo $count_input_qty ?>" name="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>"/>
+                    </span>
+                    <span class="quantity-controls ">
+                        <input type="button" class="quantity-controls quantity-plus" onclick="$('qty').value=Number($('qty').value)+1" value="+">
+                        <input type="button" class="quantity-controls quantity-minus" onclick="if(Number($('qty').value)>1){$('qty').value=Number($('qty').value)-1;}" value="-">
+                    </span> 
+                </div>
+            </div>                                  
+       <?php } ?>   
+    </div>
+    	       
+    </div>
+<?php endif; ?>

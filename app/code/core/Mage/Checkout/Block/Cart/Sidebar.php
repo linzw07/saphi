@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,10 +32,9 @@
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
+class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
 {
-    const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
-    const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
+    const XML_PATH_CHECKOUT_SIDEBAR_COUNT   = 'checkout/sidebar/count';
 
     /**
      * Class constructor
@@ -152,6 +151,19 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     {
         $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
         return $quote->getShippingAddress()->getShippingTaxAmount();
+    }
+
+    /**
+     * Get shopping cart items qty based on configuration (summary qty or items qty)
+     *
+     * @return int | float
+     */
+    public function getSummaryCount()
+    {
+        if ($this->getData('summary_qty')) {
+            return $this->getData('summary_qty');
+        }
+        return Mage::getSingleton('checkout/cart')->getSummaryQty();
     }
 
     /**
@@ -296,15 +308,5 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             (!$quoteTags)? array() : $quoteTags,
             $this->getItemsTags($items)
         );
-    }
-
-    /**
-     * Get form key
-     *
-     * @return string
-     */
-    public function getFormKey()
-    {
-        return Mage::getSingleton('core/session')->getFormKey();
     }
 }

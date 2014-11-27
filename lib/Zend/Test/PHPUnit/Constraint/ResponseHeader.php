@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResponseHeader.php 25205 2013-01-10 11:23:25Z frosch $
+ * @version    $Id: ResponseHeader.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** @see PHPUnit_Framework_Constraint */
@@ -30,7 +30,7 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Constraint
@@ -65,11 +65,6 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
      * @var int Response code
      */
     protected $_code              = 200;
-    
-    /**
-     * @var int Actual response code
-     */
-    protected $_actualCode        = null;
 
     /**
      * @var string Header
@@ -202,9 +197,6 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
                     $failure = 'Failed asserting response code IS NOT "%s"';
                 }
                 $failure = sprintf($failure, $this->_code);
-                if (!$this->_negate && $this->_actualCode) {
-                    $failure .= sprintf(PHP_EOL . 'Was "%s"', $this->_actualCode);
-                }
                 break;
             case self::ASSERT_HEADER:
                 $failure = 'Failed asserting response header "%s" found';
@@ -258,7 +250,6 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
     protected function _code(Zend_Controller_Response_Abstract $response, $code)
     {
         $test = $this->_getCode($response);
-        $this->_actualCode = $test;
         return ($test == $code);
     }
 
@@ -347,7 +338,7 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
         $contents = str_replace($header . ': ', '', $fullHeader);
 
-        return (strstr($contents, $match) !== false);
+        return (strstr($contents, $match));
     }
 
     /**
@@ -366,7 +357,7 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
         $contents = str_replace($header . ': ', '', $fullHeader);
 
-        return (strstr($contents, $match) === false);
+        return (!strstr($contents, $match));
     }
 
     /**

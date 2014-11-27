@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,7 +127,16 @@ class Mage_Paypal_Model_Observer
      */
     public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
     {
-        $countryCode = Mage::helper('paypal')->getConfigurationCountryCode();
+        $requestParam = Mage_Paypal_Block_Adminhtml_System_Config_Field_Country::REQUEST_PARAM_COUNTRY;
+        $countryCode  = Mage::app()->getRequest()->getParam($requestParam);
+        if (is_null($countryCode) || preg_match('/^[a-zA-Z]{2}$/', $countryCode) == 0) {
+            $countryCode = (string)Mage::getSingleton('adminhtml/config_data')
+                ->getConfigDataValue('paypal/general/merchant_country');
+        }
+        if (empty($countryCode)) {
+            $countryCode = Mage::helper('core')->getDefaultCountry();
+        }
+
         $paymentGroups   = $observer->getEvent()->getConfig()->getNode('sections/payment/groups');
         $paymentsConfigs = $paymentGroups->xpath('paypal_payments/*/backend_config/' . $countryCode);
         if ($paymentsConfigs) {

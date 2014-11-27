@@ -1,0 +1,342 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout version="0.1.0">
+<!--Default layout, loads most of the pages-->
+	<cms_index_index>
+	</cms_index_index>
+    <default translate="label" module="page">
+        <label>All Pages</label>
+        <block type="page/html" name="root" output="toHtml" template="page/2columns-left.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+				<action method="addJs"><script>lib/ccard.js</script></action>
+                <action method="addJs" ifconfig="dev/js/deprecation"><script>prototype/deprecation.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>scriptaculous/builder.js</script></action>
+                <action method="addJs"><script>scriptaculous/effects.js</script></action>
+                <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
+                <action method="addJs"><script>scriptaculous/controls.js</script></action>
+                <action method="addJs"><script>scriptaculous/slider.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+                <action method="addJs"><script>varien/form.js</script></action>
+                <action method="addJs"><script>varien/menu.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>mage/cookies.js</script></action>
+				<block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
+				<action method="addItem"><type>skin_css</type><name>bootstrap/css/bootstrap.css</name></action>
+				<action method="addItem"><type>skin_css</type><name>bootstrap/css/bootstrap-responsive.css</name></action>
+                <action method="addCss"><stylesheet>css/theme.css</stylesheet></action>                               
+			    <action method="addCss"><stylesheet>css/menu.css</stylesheet></action>
+				<action method="addItem"><type>skin_css</type><name>css/font-awesome.css</name><params/></action>				
+                <action method="addItem"><type>skin_css</type><name>css/ie.css</name><params/><if>IE</if></action>
+                <action method="addItem"><type>skin_css</type><name>css/ie8.css</name><params/>
+                <if>IE 8</if></action>                
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+            </block>
+            
+			<block type="core/text_list" name="after_body_start" as="after_body_start"/>
+
+            <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
+			
+			<block type="page/switch" name="store_language" as="store_language" template="page/switch/flags.phtml"/>
+            <block type="directory/currency" name="currency" as="currency" template="directory/currency.phtml"/>
+			<block type="page/template_links" name="top.links" as="topLinks">
+                
+            </block>
+            <block type="customer/form_login" name="customer_form_mini_login" as="frmlogin" template="customer/form/mini.login.phtml" />
+			<block type="catalog/navigation" name="mobinav" template="catalog/navigation/mobinav.phtml">
+                <block type="cartpro/cart_cartpro" name="linkscartpro" as="m-cartpro" template="sm/cartpro/checkout/cart/mini-cartpro-mobile.phtml"/>
+                <block type="cartpro/cart_cartpro" name="linkscartpro" as="collapse-m-cartpro" template="sm/cartpro/checkout/cart/mini-cartpro-mobile -collapse.phtml"/>
+                <block type="cartpro/cart_cartpro" name="linkscartpro" as="select-m-cartpro" template="sm/cartpro/checkout/cart/mini-cartpro-mobile -select.phtml"/>          
+                <block type="searchboxpro/list" name="searchbox" as="m-searchbox" template="sm/searchboxpro/default.phtml" />
+            </block>   
+            <block type="page/html_header" name="header" as="header">
+				<block type="searchboxpro/list" name="searchbox" template="sm/searchboxpro/default.phtml" />
+				<block type="cartpro/cart_cartpro" name="linkscartpro" template="sm/cartpro/checkout/cart/linkscartpro.phtml">
+				</block>
+               
+                <block type="page/html_wrapper" name="top.container" as="topContainer" translate="label">
+                    <label>Page Header</label>
+                    <action method="setElementClass"><value>top-container</value></action>
+                </block>
+
+				 <block type="core/text_list" name="top.menu" as="topMenu" translate="label">
+                    <label>Navigation Bar</label>
+                    <block type="page/html_topmenu" name="catalog.topnav" template="page/html/topmenu.phtml"/>
+                </block>
+				<block type="core/text_list" name="top.mobinav" as="mobiMenu" />
+				<block type="core/text_list" name="drop.links" as="dropLinks" />		
+				<block type="cms/block" name="about-us">
+					<action method="setBlockId"><block_id>about-us</block_id></action>
+				</block>
+				<block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml" />
+				
+				
+			</block>
+
+            <block type="newsletter/subscribe" name="footer.newsletter" template="newsletter/subscribe-footer.phtml"/>
+           
+           <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
+           <block type="core/text_list" name="megaMenu" as="megaMenu" />
+		   <block type="core/text_list" name="top.menu" as="topMenu" />
+           <!-- aw-blog -->
+             <block type="blog/blog" name="blog" as="blog_home"  template="aw_blog/blog.phtml"/>
+            <!-- end aw-blog -->
+            <block type="cms/block" name="left-block-banner-free">
+                <action method="setBlockId"><block_id>left-block-banner-free</block_id></action>
+            </block>
+            <block type="cms/block" name="about-us-home">
+                <action method="setBlockId"><block_id>about-us-home</block_id></action>
+            </block>
+            <!--brand logo-->
+            <block type="slider/list" name="slider.list.footer" template="sm/slider/default.phtml"></block>
+		    <block type="core/text_list" name="right" as="right" translate="label">
+                <label>Right Column</label>
+            </block>
+            <block type="core/text_list" name="left" as="left" translate="label">
+                <label>Left Column</label>
+            </block>
+            <block type="dynamicslideshow/list" name="dynamicslideshow.list.default"/>
+            <block type="core/text_list" name="right-slideshow" as="right-slideshow" translate="label">
+                <label>Right Slideshow</label>
+            </block>			
+			
+            <block type="core/text_list" name="brands" as="brands" translate="label">
+                <label>Brands</label>
+            </block>
+			
+            <block type="core/text_list" name="banner" as="banner" translate="label">
+                <label>Banner</label>
+            </block>
+            			
+			<block type="core/text_list" name="banner-green" as="banner-green" translate="label">
+                <label>Banner ad green</label>
+            </block>
+			
+			<block type="core/text_list" name="banner-blue" as="banner-blue" translate="label">
+                <label>Banner ad blue</label>
+            </block>
+			
+            <block type="core/text_list" name="banner-left" as="banner-left" translate="label">
+                <label>Banner Left</label>
+            </block>  						           			
+			
+            <block type="core/text_list" name="slider" as="slider" translate="label">
+                <label>SM Slider</label>
+            </block>	
+			
+            <block type="core/text_list" name="right-slideshow" as="right-slideshow" translate="label">
+                <label>SM Basicproduct</label>
+            </block>
+			
+            <block type="core/text_list" name="product-left" as="product-left" translate="label">
+                <label>Basicproduct Left</label>
+            </block>
+
+            <block type="core/text_list" name="extraslider" as="extraslider" translate="label">
+                <label>SM Extraslider</label>
+            </block>			
+			
+            <block type="core/text_list" name="news" as="news" translate="label">
+                <label>News</label>
+            </block>
+           
+            <block type="core/text_list" name="block-contact-map" as="block-contact-map" translate="label">
+                <label>Contact Map</label>
+            </block>		   
+		   
+			<block type="core/text_list" name="reviewarticle" as="reviewarticle" translate="label">
+                <label>Review Article</label>
+            </block>
+			
+			<block type="core/text_list" name="yt-footer-content1" as="yt-footer-content1" translate="label">
+                <label>Footer Content1</label>
+            </block>
+
+			<block type="core/text_list" name="yt-footer-content2" as="yt-footer-content2" translate="label">
+                <label>Footer Content2</label>
+            </block>
+
+			<block type="core/text_list" name="yt-footer-content3" as="yt-footer-content3" translate="label">
+                <label>Footer Content3</label>
+            </block>			
+			<block type="core/messages" name="global_messages" as="global_messages"/>
+            <block type="core/messages" name="messages" as="messages"/>
+			
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
+			
+			 <block type="core/text_list" name="content-top" as="content-top" translate="label">
+                <label>Main Content Area Top</label>
+            </block>
+			<block type="core/text_list" name="content-bottom" as="content-bottom" translate="label">
+                <label>Main Content Area Bottom</label>
+            </block>
+
+            <block type="page/html_spotlight" name="spotlight" as="spotlight" template="page/html/spotlight.phtml">
+            </block>
+			<block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
+			</block>
+
+            <block type="core/text_list" name="before_body_end" as="before_body_end"/>
+        </block>		
+		
+		<!-- Mega Menu -->
+		<reference name="megaMenu">        
+			<block type="megamenu/list" name="megamenu.list.theme">			
+			</block>
+		</reference>
+		
+		<!--Display category on right-->
+		<remove name="right.reports.product.viewed" />
+		
+
+        <reference name="left">
+            <block type="catalog/layer_view" name="catalog.shopby" template="catalog/layer/view.phtml"/>
+
+            <!-- aw-blog -->
+             <block type="blog/blog" name="blogleft" as="blogleft"  template="aw_blog/blog-left.phtml"/>
+            <!-- end aw-blog -->
+            <block type="cms/block" name="left-block-banner-free">
+                <action method="setBlockId"><block_id>left-block-banner-free</block_id></action>
+            </block>
+            <block type="basicproducts/home" name="bestsales" template="sm/basicproducts/bestseller.phtml"></block> 
+        </reference>
+		
+        <reference name="right">
+        </reference>
+
+
+		<block type="core/profiler" output="toHtml" name="core_profiler"/>
+
+		<!--Connect -->
+        <reference name="connect">
+        </reference>
+		
+		<!-- Bottom Spotlight - botsl -->
+		<reference name="botsl">
+		</reference>
+		<!-- Bottom Spotlight - botsl -->
+		
+		<!-- Bottom Product Slider -->
+		<reference name="botproduct">
+		</reference>
+		<!-- //Bottom Product Slider -->
+		
+		<!-- Bottom Spotlight - botsl1 -->
+		<reference name="botsl1">
+			<block type="cms/block" name="position-11">
+				<action method="setBlockId"><block_id>position-11</block_id></action>
+			</block>
+			<block type="cms/block" name="position-12">
+				<action method="setBlockId"><block_id>position-12</block_id></action>
+			</block>
+			<block type="cms/block" name="position-13">
+				<action method="setBlockId"><block_id>position-13</block_id></action>
+			</block>
+		</reference>
+		<!-- Bottom Spotlight - botsl1 -->
+    </default>
+
+    <print translate="label" module="page">
+        <label>All Pages (Print Version)</label>
+        <!-- Mage_Page -->
+        <block type="page/html" name="root" output="toHtml" template="page/print.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+				<action method="addJs"><script>lib/ccard.js</script></action>	
+                <action method="addCss"><stylesheet>css/addons.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/layout.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/theme.css</stylesheet></action>
+
+                <action method="addItem"><type>skin_css</type><name>css/ie.css</name><params/><if>IE</if></action>
+                <action method="addItem"><type>skin_css</type><name>css/ie7minus.css</name><params/><if>lt IE 7</if></action>
+
+                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
+                <action method="addItem"><type>js</type><name>varien/iehover-fix.js</name><params/><if>lt IE 7</if></action>
+
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+            </block>
+
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
+
+        </block>
+    </print> <!-- Custom page layout handles -->
+    <page_empty translate="label">
+        <label>All Empty Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_empty>
+
+    <page_one_column translate="label">
+        <label>All One-Column Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>            
+        </reference>
+    </page_one_column>
+
+    <page_two_columns_left translate="label">
+        <label>All Two-Column Layout Pages (Left Column)</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>		 
+        </reference>
+    </page_two_columns_left>
+
+    <page_two_columns_right translate="label">
+        <label>All Two-Column Layout Pages (Right Column)</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_two_columns_right>
+
+    <page_three_columns translate="label">
+        <label>All Three-Column Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/3columns.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_three_columns>
+</layout>

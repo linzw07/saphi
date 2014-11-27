@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,17 +104,12 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Reviews and Ratings'))
              ->_title($this->__('Customer Reviews'));
-
         $this->_title($this->__('New Review'));
-
         $this->loadLayout();
         $this->_setActiveMenu('catalog/review');
-
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
-
         $this->_addContent($this->getLayout()->createBlock('adminhtml/review_add'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/review_product_grid'));
-
         $this->renderLayout();
     }
 

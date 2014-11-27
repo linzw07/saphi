@@ -1,0 +1,53 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<div class="block block-tags">
+	<i class="tags-tit"></i>
+    <div class="block-title">
+        <span><?php echo $this->__('Popular')?> <?php echo $this->__('Tags'); ?></span>  <!--<a href="<?php echo $this->getUrl('tag/list') ?>">( <span><?php echo $this->__('more') ?></span> )</a>--></strong>
+    </div>    
+    <div class="block-content">
+        <ul class="tags-list">
+            <?php 
+			
+			echo $collection;
+				$i=0;
+				//foreach ($collection as $collection):
+				foreach ($this->getTags() as $_tag):	
+				$tagId = Mage::getModel('tag/tag')->loadByName($_tag->getName())->getId();
+				$collection = Mage::getResourceModel('tag/product_collection')->addTagFilter($tagId);
+				?>
+				<?php if($i==12) break; ?>
+                <li title="<?php echo $collection->getSize();?> "><i></i><a href="<?php echo $_tag->getTaggedProductsUrl() ?>"><?php echo $this->htmlEscape($_tag->getName()) ?></a></li>
+            <?php $i++;	endforeach; 
+			//endforeach; ?>
+        </ul>
+        <?php /* <div class="actions"> */ ?>
+            <?php /* <a href="<?php echo $this->getUrl('tag/list') ?>"><span><?php echo $this->__('View All Tags') ?></span></a> */ ?>
+        <?php /* </div> */ ?>
+    </div>
+</div>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -252,13 +252,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         return $path;
     }
 
-    /**
-     * @param bool $raw
-     * @return string
-     */
-    public function getBaseUrl($raw = false)
+    public function getBaseUrl()
     {
-        $url = parent::getBaseUrl($raw);
+        $url = parent::getBaseUrl();
         $url = str_replace('\\', '/', $url);
         return $url;
     }
